@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!-- CSP support mode (required for Windows Universal apps): https://docs.angularjs.org/api/ng/directive/ngCsp -->
-<html lang="en" ng-app="app" ng-csp>
+<html lang="ru" ng-app="app" ng-csp>
 <head>
     <meta charset="utf-8" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -8,8 +8,13 @@
 
     <!-- JS dependencies (order matters!) -->
     <script src="scripts/platformOverrides.js"></script>
+	<script src="lib/jquery.min.js"></script>
     <script src="lib/angular/angular.js"></script>
     <script src="lib/onsen/js/onsenui.min.js"></script>
+	
+<script type="text/javascript" src="lib/uppod-0.5.24.js"></script>
+<script type="text/javascript" src="lib/uppod_api.js"></script>
+<script type="text/javascript" src="lib/player.js"></script>
 
     <!-- CSS dependencies -->
     <link rel="stylesheet" href="lib/onsen/css/onsenui.css" />
@@ -28,7 +33,13 @@
 
         angular.module('app').controller('AppController', function ($scope) {
             $scope.doSomething = function () {
-                ons.notification.alert({ title: 'Внимание', message: 'В разработке' });
+                //ons.notification.alert({ title: 'Внимание', message: 'В разработке' });
+					streamnone.show();
+					setTimeout('streamnone.hide()', 3000);
+            };
+			$scope.aacnone = function () {
+					streamnone.show();
+					setTimeout('streamnone.hide()', 3000);
             };
         });
     </script>
@@ -121,6 +132,126 @@
             color: #999;
             float: right;
         }
+		
+		
+		
+		
+		
+		.page--shop-details__content {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 0px !important;
+  bottom: 0px;
+      margin: 0px 10%;
+}
+
+.card {
+  background-color: white;
+  background-image: url(https://avatars.yandex.net/get-music-content/ae86ea6a.a.10227-1/600x600);
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+  height: 48vh;
+   background-position: 50%;
+}
+
+.card-toolbar ons-back-button span {
+  color: white;
+}
+
+.card-name {
+  font-weight: 600;
+  font-size: 20px;
+  padding: 66px 0 8px 0;
+  text-align: center;
+}
+
+.card-desc {
+  font-size: 14px;
+  font-weight: 400;
+  opacity: 0.9;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.rating {
+  text-align: center;
+  position: relative;
+  height: 0px;
+}
+
+.rating-num {
+  position: relative;
+  top: -24px;
+  height: 24px;
+  color: white;
+  line-height: 24px;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+  border-radius: 4px 4px 0 0;
+  padding: 0 6px;
+  background-color: #eb482f;
+  color: white;
+  width: auto;
+  margin: 0 auto 0 auto;
+  display: inline-block;
+}
+
+.rating-num ons-icon {
+  font-size: 11px;
+  vertical-align: -0px;
+}
+
+.action-col {
+  text-align: center;
+  opacity: 0.4;
+  padding: 10px 0 8px;
+}
+
+.action-col:active {
+  opacity: 0.7;
+}
+
+.action-col ons-button {
+  padding: 0;
+  line-height: 1;
+}
+
+.action-icon {
+  padding: 0 0 4px 0;
+}
+
+.action-icon ons-icon {
+  font-size: 28px;
+}
+
+.action-label {
+  font-size: 12px;
+}
+
+.prop-desc {
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+.prop-desc ons-icon {
+  font-size: 14px;
+  vertical-align: -0px;
+  opacity: 0.5;
+}
+
+p#title {
+    font-size: 24px;
+    font-weight: 300;
+    color: #212121;
+}
+p#song {
+    font-size: 14px;
+    font-weight: 300;
+    color: #FFAB40;
+}
     </style>
 
 </head>
@@ -130,18 +261,19 @@
     <script src="cordova.js"></script>
     <script src="scripts/index.js"></script>
     <!-- -->
-
+	<ons-modal var="streamnone"><ons-icon icon="ion-load-c" spin="true"></ons-icon><br><br>Формат трансляции AAC+ не доступен в текущей версии.<br>Воспользуйтесь MP3 (128kb\s)</ons-modal>
     <ons-tabbar>
+	
         <ons-tab active="true" page="home.html">
             <div class="tab">
-                <ons-icon icon="ion-home" class="tab-icon"></ons-icon>
+                <ons-icon icon="ion-radio-waves" class="tab-icon"></ons-icon>
                 <div class="tab-label">Вещание</div>
             </div>
         </ons-tab>
 		
 		<ons-tab page="history.html">
             <div class="tab">
-                <ons-icon icon="ion-home" class="tab-icon"></ons-icon>
+                <ons-icon icon="ion-ios-list-outline" class="tab-icon"></ons-icon>
                 <div class="tab-label">История</div>
             </div>
         </ons-tab>
@@ -162,52 +294,74 @@
                     <div class="center">Вещание</div>
                     <div class="right"></div>
                 </ons-toolbar>
-				<ul class="list">
-					<li class="list__item" style="text-align: center;">
-					  <div style="float: left"><i class="fa fa-volume-down fa-fw"></i></div>
-					  <div style="float: right"><i class="fa fa-volume-up fa-fw"></i></div>
-					  <input type="range" value="50" class="range" style="margin-top: 6px; width: 90%;">
-					</li>
-				</ul>
+				
+				
+				<ons-page modifier="shop-details">
+					<ons-toolbar modifier="transparent">
+					  <div class="right">
+						<ons-toolbar-button><ons-icon icon="ion-ios7-chatboxes" style="color: white"></ons-icon></ons-toolbar-button>
+					  </div>
+					  <div class="left">
+						<ons-toolbar-button><ons-icon icon="ion-arrow-left-c" style="color: white; font-size: 28px;" fixed-width="false"></ons-icon></ons-toolbar-button>
+					  </div>
+					</ons-toolbar>
+
+					<div class="card" id="imgalb"></div>
+					<p id="title">Название исполнителя</p>
+					<p id="song">Полное длинное название песни, иногда</p>
+					<div class="rating"><div class="rating-num">
+						<ons-icon icon="fa-star" fixed-width="false"></ons-icon>
+						<ons-icon icon="fa-star" fixed-width="false"></ons-icon>
+						<ons-icon icon="fa-star" fixed-width="false"></ons-icon>
+						<ons-icon icon="fa-star" fixed-width="false"></ons-icon>
+						<ons-icon icon="fa-star-half" fixed-width="false"></ons-icon>
+						4.5
+					</div></div>
+
+					<ons-list style="border-top: none"><ons-list-item style="line-height: 1; padding: 0;">
+					  <ons-row class="action">
+						<ons-col class="action-col"><div class="action-icon"><ons-icon icon="ion-thumbsdown"></ons-icon></div><div class="action-label">Не нравится</div></ons-col>
+						<ons-col class="action-col"><div class="action-icon"><ons-icon icon="ion-android-share-alt"></ons-icon></div><div class="action-label">Поделиться</div></ons-col>
+						<ons-col class="action-col"><div class="action-icon"><ons-icon icon="ion-thumbsup"></ons-icon></div><div class="action-label">Мне нравится</div></ons-col>
+					  </ons-row>
+					</ons-list-item></ons-list>
+
+					<ons-list style="margin-top: 12px;">
+					  <ons-list-item modifier="chevron">
+						<div class="prop-desc">
+						  <ons-icon icon="fa-map-marker"></ons-icon>
+						 Включить трансляцию
+						</div>
+					  </ons-list-item>
+					</ons-list>
+					<a id ="stream" class="waves-effect waves-red btn green">Включить трансляцию <i class="large mdi-av-play-arrow"></i></a>
+				  </ons-page>
+				
+				
+				
 				<div class="button-bar" style="width:100%;">
-				  <div class="button-bar__item">
-					<input type="radio" name="segment-a" checked>
+				  <div class="button-bar__item"  ng-click="aacnone()">
+					<input type="radio" name="segment-a" disabled>
 					<button class="button-bar__button">32kb\s (acc+)</button>
 				  </div>
 
-				  <div class="button-bar__item">
-					<input type="radio" name="segment-a">
+				  <div class="button-bar__item"  ng-click="aacnone()">
+					<input type="radio" name="segment-a" disabled>
 					<button class="button-bar__button">64kb\s (acc+)</button>
 				  </div>
 
 				  <div class="button-bar__item">
-					<input type="radio" name="segment-a">
+					<input type="radio" name="segment-a" checked>
 					<button class="button-bar__button">128kb\s (mp3)</button>
 				  </div>
 				</div>
-                <ons-list style="margin: -1px 0">
-					<div class="settings-header">Интересности</div>
-                    <ons-list-item modifier="chevron" class="item" ng-repeat="i in [1,2]" ng-click="doSomething()">
-                        <ons-row>
-                            <ons-col width="60px">
-                                <div class="item-thum"></div>
-                            </ons-col>
-                            <ons-col>
-                                <header>
-                                    <span class="item-title">В сибире белочки спели голышем</span>
-                                    <span class="item-label">1 час назад</span>
-                                </header>
-                                <p class="item-desc">Бла-бла-бла</p>
-                            </ons-col>
-                        </ons-row>
-                    </ons-list-item>
-                </ons-list>
+
             </ons-page>
         </ons-navigator>
     </ons-template>
 
     <ons-template id="settings.html">
-        <ons-page>
+        <ons-page id="settings">
             <ons-toolbar>
                 <div class="center">НАСТРОЙКИ</div>
             </ons-toolbar>
@@ -234,9 +388,27 @@
 
                 <ons-list-item>
                     Фейсбук
-                    <ons-switch modifier="list-item" checked></ons-switch>
+                    <ons-switch modifier="list-item"></ons-switch>
+                </ons-list-item>
+				<ons-list-item>
+                    Google+
+                    <ons-switch modifier="list-item"></ons-switch>
+                </ons-list-item>
+				<ons-list-item>
+                    Twitter
+                    <ons-switch modifier="list-item"></ons-switch>
                 </ons-list-item>
             </ons-list>
+			<select id="bitrate">
+							<option value="aac-32">AAC 32 кб/c</option>
+							<option value="aac-64"  selected>AAC 64 кб/c</option>
+							<option value="mp3-128">MP3 128 кб/c</option>
+						</select>
+			
+
+
+
+
 
             <div class="settings-header">Другие</div>
 
@@ -286,5 +458,169 @@
              </ons-list>
 		</ons-page>
 	</ons-template>
+	
+
+
+
+	
+	<script>
+	ons.bootstrap();
+	$(document.body).on("pageinit", '#settings', function() {
+	  $("#show-modal", this).click(function() {
+		modal.show();
+		setTimeout('modal.hide()', 2000);
+	  });
+	});
+	</script>
+	<script>
+		$i = 0;
+		$id = 1;
+
+		var voted = false;
+		$('.up').click(function(){
+			$(this).addClass('scaleDown');
+			$('.down').addClass('scaleDown');
+			$('.check').addClass('ok green-text');
+			$('.check').text('Принято');
+			voted = true;
+		});
+
+		$('.down').click(function(){
+			$(this).addClass('scaleDown');
+			$('.up').addClass('scaleDown');
+			$('.check').addClass('ok red-text');
+			$('.check').text('Принято');
+			voted = true;
+		});
+
+		function reset(){
+			$('.scaleDown').removeClass('scaleDown');
+			$('.check').removeClass('ok green-text red-text');
+			$('.check').text('');
+			voted = false;
+		}
+
+		$.getJSON("http://app.radio13.ru/status/json.php?i=i", function(info) {
+			$i = info.i;
+			$l = info.l;
+			$u = info.u;
+			$sv = parseFloat($l) + parseFloat($u);
+			if($sv != 0){
+				var prc = Math.round(($l * 100) / $sv);
+				$('.determinate').width(prc+'%');
+			}
+			else {
+				$('.determinate').width('0%');
+			}
+			$('#' + $i + '_likes').text($l);
+			$('#' + $i + '_unlikes').text($u);
+			if ($i != $id){
+				$.getJSON("http://app.radio13.ru/status/json.php?i=l", function(load) {
+					$id = load.id;
+					$a = load.a;
+					$s = load.s;
+					$c = load.c;
+					$vkmus = load.vk;
+					$('#title').text($a);
+					$('#song').text($s);
+					$('#imgalb').attr('data-caption', $a + ' - ' + $s);
+					$('body').attr('id', $id);
+					$('.nmbl').attr('id', $id +'_likes');
+					$('.nmbu').attr('id', $id +'_unlikes');
+					if(voted)reset();
+
+					$.ajax({
+						url: "http://ws.audioscrobbler.com/2.0/?method=album.getinfo&artist="+$a+"&album="+$s+"&api_key=88571316d4e244f24172ea9a9bf602fe",
+						type: "GET",
+						dataType: "xml",
+						success: function(xml) {
+							$(xml).find('album').each(function(){
+							$(this).find('image').each(function(){
+							var img = $(this).attr('size');
+							if(img == "mega")
+							if ($(this).text()){
+								$('#imgalb').css('background-image', 'url('+$(this).text()+');');
+							}
+							else {
+								$('#imgalb').css('background-image', 'url(res/images/no-image.png)');
+							}
+							})
+							});
+						},
+						statusCode: {
+							400: function() {
+								$('#imgalb').css('background-image', 'url(res/images/no-image.png)');
+							}
+						}
+					});
+
+				});
+
+			}
+		});
+		setInterval(function(){
+			$.getJSON("http://app.radio13.ru/status/json.php?i=i", function(info) {
+				$i = info.i;
+				$l = info.l;
+				$u = info.u;
+				$sv = parseFloat($l) + parseFloat($u);
+				if($sv != 0){
+					var prc = Math.round(($l * 100) / $sv);
+					$('.determinate').width(prc+'%');
+				}
+				else {
+					$('.determinate').width('0%');
+				}
+
+				$('#' + $i + '_likes').text($l);
+				$('#' + $i + '_unlikes').text($u);
+				if ($i != $id){
+					$.getJSON("http://app.radio13.ru/status/json.php?i=l", function(load) {
+						$id = load.id;
+						$a = load.a;
+						$s = load.s;
+						$c = load.c;
+						$vkmus = load.vk;
+						$('#title').text($a);
+						$('#song').text($s);
+						$('#imgalb').attr('data-caption', $a + ' - ' + $s);
+						$('body').attr('id', $id);
+						$('.nmbl').attr('id', $id +'_likes');
+						$('.nmbu').attr('id', $id +'_unlikes');
+						if(voted)reset();
+
+						$.ajax({
+							url: "http://ws.audioscrobbler.com/2.0/?method=album.getinfo&artist="+$a+"&album="+$s+"&api_key=88571316d4e244f24172ea9a9bf602fe",
+							type: "GET",
+							dataType: "xml",
+							success: function(xml) {
+								$(xml).find('album').each(function(){
+									$(this).find('image').each(function(){
+										var img = $(this).attr('size');
+										if(img == "mega")
+										if ($(this).text()){
+											$('#imgalb').css('background-image', 'url('+$(this).text()+');');
+										}
+										else {
+											$('#imgalb').css('background-image', 'url(res/images/no-image.png)');
+										}
+									})
+								});
+							},
+							statusCode: {
+								400: function() {
+									$('#imgalb').css('background-image', 'url(res/images/no-image.png)');
+								}
+							}
+						});
+
+					});
+
+				}
+			});
+		}, 10000);
+
+	</script>
+
 </body>
 </html>
