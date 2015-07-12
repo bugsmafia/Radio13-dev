@@ -12,9 +12,7 @@
     <script src="lib/angular/angular.js"></script>
     <script src="lib/onsen/js/onsenui.min.js"></script>
 	
-<script type="text/javascript" src="lib/uppod-0.5.24.js"></script>
-<script type="text/javascript" src="lib/uppod_api.js"></script>
-<script type="text/javascript" src="lib/player.js"></script>
+
 
     <!-- CSS dependencies -->
     <link rel="stylesheet" href="lib/onsen/css/onsenui.css" />
@@ -542,14 +540,14 @@ p#song {
 								$('#imgalb').css('background-image', 'url('+$(this).text()+');');
 							}
 							else {
-								$('#imgalb').css('background-image', 'url(res/images/no-image.png)');
+								$('#imgalb').css('background', 'url(/res/images/no-image.png)');
 							}
 							})
 							});
 						},
 						statusCode: {
 							400: function() {
-								$('#imgalb').css('background-image', 'url(res/images/no-image.png)');
+								$('#imgalb').css('background', 'url(/res/images/no-image.png)');
 							}
 						}
 					});
@@ -599,17 +597,17 @@ p#song {
 										var img = $(this).attr('size');
 										if(img == "mega")
 										if ($(this).text()){
-											$('#imgalb').css('background-image', 'url('+$(this).text()+');');
+											$('#imgalb').css('background', 'url('+$(this).text()+');');
 										}
 										else {
-											$('#imgalb').css('background-image', 'url(res/images/no-image.png)');
+											$('#imgalb').css('background', 'url(/res/images/no-image.png)');
 										}
 									})
 								});
 							},
 							statusCode: {
 								400: function() {
-									$('#imgalb').css('background-image', 'url(res/images/no-image.png)');
+									$('#imgalb').css('background', 'url(/res/images/no-image.png)');
 								}
 							}
 						});
@@ -621,6 +619,8 @@ p#song {
 		}, 10000);
 
 	</script>
-
+<script type="text/javascript" src="lib/uppod-0.5.24.js"></script>
+<script type="text/javascript" src="lib/uppod_api.js"></script>
+<script type="text/javascript" src="lib/player.js"></script>
 </body>
 </html>
