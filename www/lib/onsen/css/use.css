@@ -1,0 +1,46 @@
+.history_block {
+    display: block;
+    width: 100%;
+    margin: 1em 2em;
+}
+.history_img {
+    width: 3rem;
+    height: 3rem;
+    display: block;
+    background-color: #F8F8F8;
+    border: 1px solid #DDD;
+	float: left;
+}
+.history_artist {
+    font-weight: 400;
+    float: left;
+    display: block;
+    line-height: 50px;
+	margin: 0em 1em;
+}
+.history_artist_song {
+    font-weight: 400;
+    float: left;
+    display: block;
+    line-height: 50px;
+	margin: 0em 1em;
+}
+
+.history_song{
+    font-weight: 100;
+    float: left;
+    display: block;
+    line-height: 50px;
+}
+.history_date{
+    font-weight: 100;
+    float: right;
+    display: block;
+    line-height: 50px;
+}
+.history_rating{
+    font-weight: 100;
+    float: right;
+    display: block;
+    line-height: 50px;
+}

@@ -10,18 +10,21 @@
     <script src="scripts/platformOverrides.js"></script>
 	<script src="lib/jquery.min.js"></script>
     <script src="lib/angular/angular.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js"></script>
     <script src="lib/onsen/js/onsenui.min.js"></script>
 	
 
-
+<script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.js"></script>
     <!-- CSS dependencies -->
     <link rel="stylesheet" href="lib/onsen/css/onsenui.css" />
-    <link rel="stylesheet" href="lib/onsen/css/onsen-css-components-blue-basic-theme.css" />
+    <link rel="stylesheet" href="lib/onsen/css/onsen-css-components-radio13.css" />
 
     <!-- CSP support mode (required for Windows Universal apps) -->
     <link rel="stylesheet" href="lib/angular/angular-csp.css" />
-
-
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
+	<link rel="stylesheet" href="lib/onsen/css/use.css" />
     <!-- --------------- App init --------------- -->
 
     <title>Радио 13</title>
@@ -39,7 +42,18 @@
 					streamnone.show();
 					setTimeout('streamnone.hide()', 3000);
             };
+			
+				var imagePath = 'img/list/60.jpeg';
+				$.getJSON("http://app.radio13.ru/status/json.php?i=h", function(history) {
+					$scope.history = history;
+					
+				
+				});
+				jQuery(".history_date t").timeago();
+				
+				
         });
+
     </script>
 
     <style>
@@ -190,7 +204,6 @@
   text-align: center;
   border-radius: 4px 4px 0 0;
   padding: 0 6px;
-  background-color: #eb482f;
   color: white;
   width: auto;
   margin: 0 auto 0 auto;
@@ -248,7 +261,7 @@ p#title {
 p#song {
     font-size: 14px;
     font-weight: 300;
-    color: #FFAB40;
+    color: #f5821f;
 }
     </style>
 
@@ -284,16 +297,17 @@ p#song {
         </ons-tab>
     </ons-tabbar>
 
+
     <ons-template id="home.html">
         <ons-navigator>
             <ons-page>
                 <ons-toolbar>
-                    <div class="left"><ons-toolbar-button ng-click="doSomething()"><ons-icon icon="ion-compose"></ons-icon></ons-toolbar-button></div>
-                    <div class="center">Вещание</div>
-                    <div class="right"></div>
-                </ons-toolbar>
-				
-				
+			  <div class="left">
+				<ons-toolbar-button ng-click="menu.toggleMenu()"><ons-icon icon="ion-navicon" style="font-size: 32px; width: 1em;"></ons-icon></ons-toolbar-button>
+			  </div>
+			  <div class="center">Page 1</div>
+			</ons-toolbar>
+
 				<ons-page modifier="shop-details">
 					<ons-toolbar modifier="transparent">
 					  <div class="right">
@@ -332,6 +346,7 @@ p#song {
 						</div>
 					  </ons-list-item>
 					</ons-list>
+
 					<a id ="stream" class="waves-effect waves-red btn green">Включить трансляцию <i class="large mdi-av-play-arrow"></i></a>
 				  </ons-page>
 				
@@ -438,39 +453,28 @@ p#song {
             <ons-toolbar>
                 <div class="center">ИСТОРИЯ</div>
             </ons-toolbar>
-			<ons-list style="margin: -1px 0">
-                 <ons-list-item modifier="chevron" class="item" ng-repeat="i in [1,2,3,4,5]" ng-click="doSomething()">
-                    <ons-row>
-                        <ons-col width="60px">
-                            <div class="item-thum"></div>
-                        </ons-col>
-                        <ons-col>
-                             <header>
-                                <span class="item-title">Исполнитель</span>
-                                 <span class="item-label">5 мин назад</span>
-                             </header>
-                             <p class="item-desc">Название трека</p>
-                         </ons-col>
-						</ons-row>
-                    </ons-list-item>
+			
+			<ons-list  class="procedures" style="margin: -1px 0">
+				<md-list-item ng-repeat="item in history">
+					<div class="history_block" id="{{ item.chartid }}">
+					<div class="history_img">{{ item.chartid }}</div>
+					<div class="history_artist_song">{{ item.artist }} - {{ item.song }}</div>
+					<div class="history_date"><t title="{{ item.date }}Z+03"></t></div>
+					<div class="history_rating">{{ item.like }} / {{ item.unlike }}</div>
+					</div>
+				</md-list-item>	
              </ons-list>
 		</ons-page>
 	</ons-template>
 	
 
 
+	<script>
+
 
 	
-	<script>
-	ons.bootstrap();
-	$(document.body).on("pageinit", '#settings', function() {
-	  $("#show-modal", this).click(function() {
-		modal.show();
-		setTimeout('modal.hide()', 2000);
-	  });
-	});
-	</script>
-	<script>
+	
+	
 		$i = 0;
 		$id = 1;
 
@@ -540,14 +544,14 @@ p#song {
 								$('#imgalb').css('background-image', 'url('+$(this).text()+');');
 							}
 							else {
-								$('#imgalb').css('background', 'url(/res/images/no-image.png)');
+								$('#imgalb').css('background-image', 'url(res/images/no-image.png)');
 							}
 							})
 							});
 						},
 						statusCode: {
 							400: function() {
-								$('#imgalb').css('background', 'url(/res/images/no-image.png)');
+								$('#imgalb').css('background-image', 'url(res/images/no-image.png)');
 							}
 						}
 					});
@@ -597,17 +601,17 @@ p#song {
 										var img = $(this).attr('size');
 										if(img == "mega")
 										if ($(this).text()){
-											$('#imgalb').css('background', 'url('+$(this).text()+');');
+											$('#imgalb').css('background-image', 'url('+$(this).text()+');');
 										}
 										else {
-											$('#imgalb').css('background', 'url(/res/images/no-image.png)');
+											$('#imgalb').css('background-image', 'url(res/images/no-image.png)');
 										}
 									})
 								});
 							},
 							statusCode: {
 								400: function() {
-									$('#imgalb').css('background', 'url(/res/images/no-image.png)');
+									$('#imgalb').css('background-image', 'url(res/images/no-image.png)');
 								}
 							}
 						});
@@ -619,8 +623,6 @@ p#song {
 		}, 10000);
 
 	</script>
-<script type="text/javascript" src="lib/uppod-0.5.24.js"></script>
-<script type="text/javascript" src="lib/uppod_api.js"></script>
-<script type="text/javascript" src="lib/player.js"></script>
+	<script src="lib/jquery.timeago.js"></script>
 </body>
 </html>
