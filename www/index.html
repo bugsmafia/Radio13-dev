@@ -402,6 +402,9 @@ transition:1s filter linear}
 	<script>
 	$i = 0;
 	$id = 1;
+	$imgalbW = $('#imgalb').width();
+	$('#imgalb').height($imgalbW);
+	$('#infoblock').height($imgalbW);	
 	$.getJSON("http://app.radio13.ru/status/json.php?i=i", function(info) {
 			$i = info.i;
 			$l = info.l;
@@ -538,19 +541,14 @@ transition:1s filter linear}
 				}
 			});
 			$imgalbW = $('#imgalb').width();
-			$bodyH = $('body').height();
-			
+			$('#imgalb').height($imgalbW);
+			$('#infoblock').height($imgalbW);		
+			$bodyH = $('body').height();			
 			$imgalbH = $('#imgalb').height();
 			$btnplayH = $('#btnplay').height();
-			
-
 			$mainbox = $bodyH - ($imgalbH + $btnplayH+80) ;
-
-			$mainbox = $mainbox / 2;
-
-			$('#imgalb').height($imgalbW);
-			$('#infoblock').height($imgalbW);
-			
+			$mainbox = $mainbox / 2;			
+				
 			$('#mainbox').css('padding-top', $mainbox);
 		}, 10000);
 	</script>
