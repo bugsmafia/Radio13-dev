@@ -20,7 +20,12 @@
 		</section>
 	</div>
 			
-<div id="wpar_blur"><div id="blurimg"></div></div>
+<div id="wpar_blur"><div id="blurimg" class="blur"></div></div>
+<svg version=1.1 xmlns="http://www.w3.org/2000/svg">
+<filter id=blur>
+<feGaussianBlur stdDeviation=3 />
+</filter>
+</svg>
 			<div class="player" id="player" style="display:none;"></div>
 
 			<div id="p-setting"  class="col s6" style="display:none;">
@@ -352,8 +357,7 @@ div#blurimg {
     z-index: -10;
     background-size: cover;
     background-position: 50%;
-    -webkit-filter: blur(10px);
-    filter: blur(10px);
+
     left: -7%;
     background-color: #000;
 }
@@ -384,6 +388,15 @@ div#wpar_blur {
     letter-spacing: 0;
     margin-bottom: 16px;
 }
+
+.blur{
+-webkit-filter:url(#blur);
+filter:url(#blur);
+-webkit-filter:blur(13px);
+filter:blur(13px);
+filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='13');
+-webkit-transition:1s -webkit-filter linear;
+transition:1s filter linear}
 	</style>
 	<script src="js/material.js"></script>
 	<script src="js/jquery-2.1.4.min.js"></script>
@@ -391,7 +404,7 @@ div#wpar_blur {
 	<script>
 	$i = 0;
 	$id = 1;
-	$.getJSON("https://app.radio13.ru/status/json.php?i=i", function(info) {
+	$.getJSON("http://app.radio13.ru/status/json.php?i=i", function(info) {
 			$i = info.i;
 			$l = info.l;
 			$u = info.u;
@@ -406,7 +419,7 @@ div#wpar_blur {
 			$('#' + $i + '_likes').text($l);
 			$('#' + $i + '_unlikes').text($u);
 			if ($i != $id){
-				$.getJSON("https://app.radio13.ru/status/json.php?i=l", function(load) {
+				$.getJSON("http://app.radio13.ru/status/json.php?i=l", function(load) {
 					$id = load.id;
 					$a = load.a;
 					$s = load.s;
@@ -462,7 +475,7 @@ div#wpar_blur {
 			}
 		});
 		setInterval(function(){
-			$.getJSON("https://app.radio13.ru/status/json.php?i=i", function(info) {
+			$.getJSON("http://app.radio13.ru/status/json.php?i=i", function(info) {
 				$i = info.i;
 				$l = info.l;
 				$u = info.u;
@@ -478,7 +491,7 @@ div#wpar_blur {
 				$('#' + $i + '_likes').text($l);
 				$('#' + $i + '_unlikes').text($u);
 				if ($i != $id){
-					$.getJSON("https://app.radio13.ru/status/json.php?i=l", function(load) {
+					$.getJSON("http://app.radio13.ru/status/json.php?i=l", function(load) {
 						$id = load.id;
 						$a = load.a;
 						$s = load.s;
@@ -533,15 +546,14 @@ div#wpar_blur {
 			$btnplayH = $('#btnplay').height();
 			
 
-			$mainbox = $bodyH - ($imgalbH + $btnplayH) ;
+			$mainbox = $bodyH - ($imgalbH + $btnplayH+80) ;
 
 			$mainbox = $mainbox / 2;
 
 			$('#imgalb').height($imgalbW);
 			$('#infoblock').height($imgalbW);
 			
-			$('#mainbox').height($imgalbH + $btnplayH + 80);
-			$('#mainbox').css('margin-top', $mainbox);
+			$('#mainbox').css('padding-top', $mainbox);
 		}, 10000);
 	</script>
 	
