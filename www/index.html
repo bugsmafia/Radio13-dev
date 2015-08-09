@@ -7,22 +7,20 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   </head>
   <body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
-    
-<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
-            <header id="imgalb" class="section__play-btn mdl-cell mdl-cell--6-col-desktop mdl-cell--12-col-tablet mdl-cell--6-col-phone mdl-color--teal-100 mdl-color-text--white">
-            </header>
-            <div class="mdl-card mdl-cell mdl-cell--6-col-desktop mdl-cell--12-col-tablet mdl-cell--6-col-phone">
-              <div class="mdl-card__supporting-text">
-                <h3 Id="artist">Соединение с сервером...</h3>
-                <p id="song"></p>
-              </div>
-              <div class="mdl-card__actions" style="padding: 0px;">
-                <button id ="stream"  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Включить радио</button>
-              </div>
-            </div>
-          </section>	
+  <div id="mainbox">
+		<section  id="imgalb" class="about-panel about-panel--components mdl-color-text--white mdl-cell mdl-cell--6-col"  data-adaptive-background='1'   data-ab-css-background='1'></section>
+		<section  id="infoblock" class="about-panel about-panel--components mdl-cell mdl-cell--6-col">
+			<div class="mdl-card__supporting-text mdl-color-text--black">
+				<h3 Id="artist">Соединение с сервером...</h3>
+				<p id="song"></p>
+			</div>
+		</section>
+		<section  id="btnplay" class="about-panel about-panel--components mdl-color-text--white mdl-cell mdl-cell--12-col">
+			<button id ="stream"  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Включить радио</button>
+		</section>
+	</div>
 			
-
+<div id="wpar_blur"><div id="blurimg"></div></div>
 			<div class="player" id="player" style="display:none;"></div>
 
 			<div id="p-setting"  class="col s6" style="display:none;">
@@ -159,12 +157,7 @@
   position: relative;
   margin-bottom: 48px;
 }
-.mdl-demo section.section--center {
-  max-width: 860px;
-}
-.mdl-demo #features section.section--center {
-  max-width: 620px;
-}
+
 .mdl-demo section > header{
   display: -webkit-box;
   display: -webkit-flex;
@@ -185,12 +178,7 @@
 .mdl-demo section > header > .material-icons {
   font-size: 3rem;
 }
-.mdl-demo section > button {
-  position: absolute;
-  z-index: 99;
-  top: 8px;
-  right: 8px;
-}
+
 .mdl-demo section .section__circle {
   display: -webkit-box;
   display: -webkit-flex;
@@ -303,15 +291,84 @@ button#stream {
     font-weight: 100;
     background-color: #f5821f;
     width: 100%;
-    height: 100%;
+    height: 5vh;
+    display: block;
 }
-#imgalb {
+#imgalb, #mainbox {
     -webkit-transition: all 2s ease;
     -moz-transition: all 2s ease;
     -ms-transition: all 2s ease;
     -o-transition: all 2s ease;
     transition: all 2s ease;
 }
+
+
+.about-panel--components, .about-panel--styles, .about-panel--customize, .about-panel--templates {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: end;
+    -webkit-justify-content: flex-end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+    padding: 40px;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 1.4rem;
+    background-repeat: no-repeat;
+    background-position: center center;
+    cursor: pointer;
+	float: left;
+	margin: 0px;
+	width: 50%;
+}
+.about-panel--components {
+    background-color: rgba(255,255,255,0.4);
+}
+section#btnplay {
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+div#mainbox {
+    display: block;
+    clear: both;
+}
+div#blurimg {
+    width: 115%;
+    height: 115%;
+    position: fixed;
+    top: -7%;
+    z-index: -10;
+    background-size: cover;
+    background-position: 50%;
+    -webkit-filter: blur(10px);
+    filter: blur(10px);
+    left: -7%;
+    background-color: #000;
+}
+div#wpar_blur {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    display: block;
+    width: 100%;
+    height: 100%;
+    /* position: relative; */
+    overflow: hidden;
+	z-index: -10;
+}
+
 	</style>
 	<script src="js/material.js"></script>
 	<script src="js/jquery-2.1.4.min.js"></script>
@@ -358,28 +415,29 @@ button#stream {
 							var img = $(this).attr('size');
 							if(img == "mega")
 							if ($(this).text()){
-								$('#imgalb').attr('src', $(this).text());
 								$('#imgalb').css('background-image', 'url("'+$(this).text()+'")');
 								$('#imgalb').css('background-size', 'cover');
 								$('#imgalb').css('background-position', '50%');
 								
+								$('#blurimg').css('background-image', 'url("'+$(this).text()+'")');
+								
+								
 							}
 							else {
-								$('#imgalb').attr('src', 'images/no-image.png');
 								$('#imgalb').css('background-image', 'url("images/no-image.png")');
 								$('#imgalb').css('background-size', 'cover');
 								$('#imgalb').css('background-position', '50%');
-								
+								$('#blurimg').css('background-image', 'url("images/no-image.png")');
 							}
 							})
 							});
 						},
 						statusCode: {
 							400: function() {
-								$('#imgalb').attr('src', 'images/no-image.png');
 								$('#imgalb').css('background-image', 'url("images/no-image.png")');
 								$('#imgalb').css('background-size', 'cover');
 								$('#imgalb').css('background-position', '50%');
+								$('#blurimg').css('background-image', 'url("images/no-image.png")');
 							}
 						}
 					});
@@ -417,7 +475,6 @@ button#stream {
 						$('body').attr('id', $id);
 						$('.nmbl').attr('id', $id +'_likes');
 						$('.nmbu').attr('id', $id +'_unlikes');
-						if(voted)reset();
 
 						$.ajax({
 							url: "http://ws.audioscrobbler.com/2.0/?method=album.getinfo&artist="+$a+"&album="+$s+"&api_key=88571316d4e244f24172ea9a9bf602fe",
@@ -429,23 +486,23 @@ button#stream {
 										var img = $(this).attr('size');
 										if(img == "mega")
 										if ($(this).text()){
-											$('#imgalb').attr('src', $(this).text());
 											$('#imgalb').css('background-image', 'url("'+$(this).text()+'")');
 											$('#imgalb').css('background-size', 'cover');
+											$('#blurimg').css('background-image', 'url("'+$(this).text()+'")');
 										}
 										else {
-											$('#imgalb').attr('src', 'images/no-image.png');
 											$('#imgalb').css('background-image', 'url("images/no-image.png")');
 											$('#imgalb').css('background-size', 'cover');
+											$('#blurimg').css('background-image', 'url("images/no-image.png")');
 										}
 									})
 								});
 							},
 							statusCode: {
 								400: function() {
-									$('#imgalb').attr('src', 'images/no-image.png');
 									$('#imgalb').css('background-image', 'url("images/no-image.png")');
 									$('#imgalb').css('background-size', 'cover');
+									$('#blurimg').css('background-image', 'url("images/no-image.png")');
 								}
 							}
 						});
@@ -455,12 +512,45 @@ button#stream {
 				}
 			});
 			$imgalbW = $('#imgalb').width();
+			$bodyH = $('body').height();
+			
+			$imgalbH = $('#imgalb').height();
+			$btnplayH = $('#btnplay').height();
+			
+
+			$mainbox = $bodyH - ($imgalbH + $btnplayH) ;
+
+			$mainbox = $mainbox / 2;
+
 			$('#imgalb').height($imgalbW);
+			$('#infoblock').height($imgalbW);
+			
+			$('#mainbox').height($imgalbH + $btnplayH + 80);
+			$('#mainbox').css('margin-top', $mainbox);
 		}, 10000);
 	</script>
 	
 	<script type="text/javascript" src="js/uppod-0.5.24.js"></script>
 	<script type="text/javascript" src="js/uppod_api.js"></script>
 	<script type="text/javascript" src="js/player.js"></script>
+	<script type="text/javascript" src="js/jquery.adaptive-backgrounds.js"></script>
+	
+	<script>
+var defaults      = {
+  selector:             '[data-ab-css-background="1"]',
+  parent:               null,
+  exclude:              [ 'rgb(0,0,0)', 'rgba(255,255,255)' ],
+  normalizeTextColor:   false,
+  normalizedTextColors:  {
+    light:      "#fff",
+    dark:       "#000"
+  },
+  lumaClasses:  {
+    light:      "ab-light",
+    dark:       "ab-dark"
+  }
+};
+$.adaptiveBackground.run(defaults)
+	</script>
   </body>
 </html>
