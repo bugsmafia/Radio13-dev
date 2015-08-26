@@ -56,6 +56,6 @@
   
 
   <gap:plugin name="de.appplant.cordova.plugin.local-notification" version="0.8.1" />
-</feature>
+
 </widget>
 
