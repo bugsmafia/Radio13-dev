@@ -51,6 +51,7 @@
   
   <gap:plugin name="org.apache.cordova.statusbar" version="0.1.4" />
   <gap:plugin name="de.appplant.cordova.plugin.local-notification" version="0.8.1" />
+  
 </feature>
 </widget>
 
