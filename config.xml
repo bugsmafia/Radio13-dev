@@ -49,9 +49,8 @@
   <gap:splash src="www/res/screen/windows-phone/screen-portrait.jpg" gap:platform="winphone"/>
   <access origin="*"/>
   
-  <gap:plugin name="nl.x-services.plugins.socialsharing" version="4.3.0" />
-  <feature name="SocialSharing">
-  <param name="android-package" value="nl.xservices.plugins.SocialSharing" />
+  <gap:plugin name="org.apache.cordova.statusbar" version="0.1.4" />
+  <gap:plugin name="de.appplant.cordova.plugin.local-notification" version="0.8.1" />
 </feature>
 </widget>
 
