@@ -22,6 +22,11 @@
 			</div>
 		</section>		
 	</div>
+	
+	<button onclick="window.plugins.toast.showShortTop('Hello there!', function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)})">Toast showShortTop</button>
+<button onclick="window.plugins.toast.showLongBottom('Hello there!', function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)})">Toast showLongBottom</button>
+<button onclick="window.plugins.toast.show('Hello there!', 'long', 'center', function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)})">Toast show long center</button>
+	
 	<div  id="bl-p" class="mdl-grid" style="background: rgba(0,0,0,0.23);">
 		<div class="mdl-cell mdl-cell--2-col"></div>
 		<div class="mdl-cell mdl-cell--8-col mdl-typography--text-center"><button id ="stream"  class="mdl-button mdl-js-button mdl-button--icon "><i class="material-icons ">play_arrow</i></div>
@@ -612,5 +617,6 @@ transition:1s filter linear}
 	<script type="text/javascript" src="js/uppod_api.js"></script>
 	<script type="text/javascript" src="js/player.js"></script>
 <script type="text/javascript" src="/local-notification/www/local-notification.js"></script>
+<script type="text/javascript" src="/toast/www/Toast.js"></script>
   </body>
 </html>
