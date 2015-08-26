@@ -5,21 +5,37 @@
     <link rel="stylesheet" href="material.css">
     <!-- Material Design icon font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  </head>
-  <body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
-  <div id="mainbox">
-		<section  id="imgalb" class="about-panel about-panel--components mdl-color-text--white mdl-cell mdl-cell--6-col"  data-adaptive-background='1'   data-ab-css-background='1'></section>
-		<section  id="infoblock" class="about-panel about-panel--components mdl-cell mdl-cell--6-col">
-			<div class="mdl-card__supporting-text mdl-color-text--black">
-				<h3 Id="artist">Соединение с сервером...</h3>
-				<p id="song"></p>
-			</div>
-		</section>
-		<section  id="btnplay" class="about-panel about-panel--components mdl-color-text--white mdl-cell mdl-cell--12-col">
-			<button id ="stream"  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Включить радио</button>
-		</section>
+	</head>
+	<body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
+	<div id="bl-h" class="mdl-grid" style="padding: 0px;">
+		<div class="mdl-cell mdl-cell--2-col"></div>
+		<div class="mdl-cell mdl-cell--8-col mdl-typography--text-center"><span id="artist">Поиск сервера</span><span id="song">Загружаем исполнителя</span></div>
+		<div class="mdl-cell mdl-cell--2-col"></div>
 	</div>
-			
+	<div id="mainbox">
+		<section  id="imgalb" class="about-panel about-panel--components mdl-color-text--white mdl-cell mdl-cell--12-col" style="margin-top: 0px;padding-top: 0px;padding-right: 0px;padding-left: 0px;">
+			<div id="imgalb2" class="demo-card-image mdl-card mdl-shadow--2dp">
+			  <div class="mdl-card__title mdl-card--expand"></div>
+			</div>
+		</section>		
+	</div>
+	<div  id="bl-p" class="mdl-grid" style="background: rgba(0,0,0,0.23);">
+		<div class="mdl-cell mdl-cell--2-col"></div>
+		<div class="mdl-cell mdl-cell--8-col mdl-typography--text-center"><button id ="stream"  class="mdl-button mdl-js-button mdl-button--icon "><i class="material-icons ">play_arrow</i></div>
+		<div class="mdl-cell mdl-cell--2-col"></div>
+	</div>
+	<div  id="bl-l" class="mdl-grid">
+		<div class="mdl-cell mdl-cell--3-col"></div>
+		<div class="mdl-cell mdl-cell--3-col mdl-typography--text-right"><a href="#" class="mdl-color-text--white"><span id="like" class="mdl-badge" data-badge="-">МНЕ НРАВИТСЯ</span></a></div>
+		<div class="mdl-cell mdl-cell--3-col mdl-typography--text-center"><a href="#" class="mdl-color-text--white"><span id="unlike" class="material-icons mdl-badge" data-badge="-">thumb_down</span></a></div>
+		<div class="mdl-cell mdl-cell--3-col"></div>
+	</div>
+	<div  id="bl-b" class="mdl-grid" style="background: rgba(0,0,0,0.23);">
+		<div class="mdl-cell mdl-cell--4-col mdl-typography--text-center"><a href="#" class="mdl-color-text--white"><span class="material-icons mdl-badge" data-badge="mp3">settings</span></a></div>
+		<div class="mdl-cell mdl-cell--4-col mdl-typography--text-center"><a href="#" class="mdl-color-text--white"><span class="material-icons mdl-badge">favorite</span></a></div>
+		<div class="mdl-cell mdl-cell--4-col mdl-typography--text-center"><a href="#" class="mdl-color-text--white"><span class="material-icons">feedback</span></a></div>
+	</div>
+
 <div id="wpar_blur"><div id="blurimg" class="blur"></div></div>
 
 			<div class="player" id="player" style="display:none;"></div>
@@ -35,7 +51,24 @@
 						</select>
 					</form>
 				</div>
-
+				
+	<style>
+	.demo-card-image.mdl-card {
+	  width: 256px;
+	  height: 256px;
+	  background: url('../assets/demos/image_card.jpg') center / cover;
+	}
+	.demo-card-image > .mdl-card__actions {
+	  height: 52px;
+	  padding: 16px;
+	  background: rgba(0, 0, 0, 0.2);
+	}
+	.demo-card-image__filename {
+	  color: #fff;
+	  font-size: 14px;
+	  font-weight: 500;
+	}
+	</style>
 	<style>
 		@font-face {
 		  font-family: 'Material Icons';
@@ -289,13 +322,15 @@ html, body {
 }
 
 button#stream {
-    font-size: 3vh;
-    line-height: 5vh;
-    font-weight: 100;
-    background-color: #f5821f;
-    width: 100%;
-    height: 5vh;
-    display: block;
+	    color: #fff;
+		width: 48px;
+		height: 48px;
+}
+button#stream i{
+	line-height: 24px;
+    width: 48px;
+    font-size: 48px;
+    margin-left: -12px;
 }
 #imgalb, #mainbox {
     -webkit-transition: all 2s ease;
@@ -324,7 +359,6 @@ button#stream {
     -webkit-justify-content: flex-end;
     -ms-flex-pack: end;
     justify-content: flex-end;
-    padding: 40px;
     color: #fff;
     text-transform: uppercase;
     font-size: 1.4rem;
@@ -332,11 +366,6 @@ button#stream {
     background-position: center center;
     cursor: pointer;
 	float: left;
-	margin: 0px;
-	width: 50%;
-}
-.about-panel--components {
-    background-color: rgba(255,255,255,0.4);
 }
 section#btnplay {
     width: 100%;
@@ -358,6 +387,7 @@ div#blurimg {
 
     left: -7%;
     background-color: #000;
+	opacity: 0.65;
 }
 div#wpar_blur {
     position: absolute;
@@ -369,23 +399,27 @@ div#wpar_blur {
     /* position: relative; */
     overflow: hidden;
 	z-index: -10;
+	background: #222;
+	
 }
 #artist {
     font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-    font-size: 36px;
-    font-weight: 400;
+    font-size: 25px;
+    font-weight: 100;
     line-height: 36px;
-    margin-top: 24px;
-    margin-bottom: 24px;
-    color: #F5821F;
+    margin-top: 0px;
+    margin-bottom: 1px;
+    color: #fff;
+    display: block;
 }
 #song {
-    font-size: 24px;
-    font-weight: 100;
+    font-size: 22px;
+    font-weight: 400;
     line-height: 24px;
     letter-spacing: 0;
     margin-bottom: 16px;
-} 
+    color: rgba(255,255,255,0.8);
+}
 
 .blur{
 -webkit-filter:url(#blur);
@@ -402,9 +436,7 @@ transition:1s filter linear}
 	<script>
 	$i = 0;
 	$id = 1;
-	$imgalbW = $('#imgalb').width();
-	$('#imgalb').height($imgalbW);
-	$('#infoblock').height($imgalbW);	
+
 	$.getJSON("http://app.radio13.ru/status/json.php?i=i", function(info) {
 			$i = info.i;
 			$l = info.l;
@@ -419,6 +451,8 @@ transition:1s filter linear}
 			}
 			$('#' + $i + '_likes').text($l);
 			$('#' + $i + '_unlikes').text($u);
+			$('#like').attr('data-badge', $l);
+			$('#unlike').attr('data-badge', $u);
 			if ($i != $id){
 				$.getJSON("http://app.radio13.ru/status/json.php?i=l", function(load) {
 					$id = load.id;
@@ -432,6 +466,8 @@ transition:1s filter linear}
 					$('body').attr('id', $id);
 					$('.nmbl').attr('id', $id +'_likes');
 					$('.nmbu').attr('id', $id +'_unlikes');
+					
+					
 
 
 					$.ajax({
@@ -444,18 +480,18 @@ transition:1s filter linear}
 							var img = $(this).attr('size');
 							if(img == "mega")
 							if ($(this).text()){
-								$('#imgalb').css('background-image', 'url("'+$(this).text()+'")');
-								$('#imgalb').css('background-size', 'cover');
-								$('#imgalb').css('background-position', '50%');
+								$('#imgalb2').css('background-image', 'url("'+$(this).text()+'")');
+								$('#imgalb2').css('background-size', 'cover');
+								$('#imgalb2').css('background-position', '50%');
 								
 								$('#blurimg').css('background-image', 'url("'+$(this).text()+'")');
 								
 								
 							}
 							else {
-								$('#imgalb').css('background-image', 'url("images/no-image.png")');
-								$('#imgalb').css('background-size', 'cover');
-								$('#imgalb').css('background-position', '50%');
+								$('#imgalb2').css('background-image', 'url("images/no-image.png")');
+								$('#imgalb2').css('background-size', 'cover');
+								$('#imgalb2').css('background-position', '50%');
 								$('#blurimg').css('background-image', 'url("images/no-image.png")');
 							}
 							})
@@ -463,9 +499,9 @@ transition:1s filter linear}
 						},
 						statusCode: {
 							400: function() {
-								$('#imgalb').css('background-image', 'url("images/no-image.png")');
-								$('#imgalb').css('background-size', 'cover');
-								$('#imgalb').css('background-position', '50%');
+								$('#imgalb2').css('background-image', 'url("images/no-image.png")');
+								$('#imgalb2').css('background-size', 'cover');
+								$('#imgalb2').css('background-position', '50%');
 								$('#blurimg').css('background-image', 'url("images/no-image.png")');
 							}
 						}
@@ -491,6 +527,8 @@ transition:1s filter linear}
 
 				$('#' + $i + '_likes').text($l);
 				$('#' + $i + '_unlikes').text($u);
+				$('#like').attr('data-badge', $l);
+				$('#unlike').attr('data-badge', $u);
 				if ($i != $id){
 					$.getJSON("http://app.radio13.ru/status/json.php?i=l", function(load) {
 						$id = load.id;
@@ -515,13 +553,13 @@ transition:1s filter linear}
 										var img = $(this).attr('size');
 										if(img == "mega")
 										if ($(this).text()){
-											$('#imgalb').css('background-image', 'url("'+$(this).text()+'")');
-											$('#imgalb').css('background-size', 'cover');
+											$('#imgalb2').css('background-image', 'url("'+$(this).text()+'")');
+											$('#imgalb2').css('background-size', 'cover');
 											$('#blurimg').css('background-image', 'url("'+$(this).text()+'")');
 										}
 										else {
-											$('#imgalb').css('background-image', 'url("images/no-image.png")');
-											$('#imgalb').css('background-size', 'cover');
+											$('#imgalb2').css('background-image', 'url("images/no-image.png")');
+											$('#imgalb2').css('background-size', 'cover');
 											$('#blurimg').css('background-image', 'url("images/no-image.png")');
 										}
 									})
@@ -529,8 +567,8 @@ transition:1s filter linear}
 							},
 							statusCode: {
 								400: function() {
-									$('#imgalb').css('background-image', 'url("images/no-image.png")');
-									$('#imgalb').css('background-size', 'cover');
+									$('#imgalb2').css('background-image', 'url("images/no-image.png")');
+									$('#imgalb2').css('background-size', 'cover');
 									$('#blurimg').css('background-image', 'url("images/no-image.png")');
 								}
 							}
@@ -540,17 +578,31 @@ transition:1s filter linear}
 
 				}
 			});
-			$imgalbW = $('#imgalb').width();
-			$('#imgalb').height($imgalbW);
-			$('#infoblock').height($imgalbW);		
-			$bodyH = $('body').height();			
-			$imgalbH = $('#imgalb').height();
-			$btnplayH = $('#btnplay').height();
-			$mainbox = $bodyH - ($imgalbH + $btnplayH+80) ;
-			$mainbox = $mainbox / 2;			
+			//$imgalbW = $('#imgalb').width();
+			//$('#imgalb').height($imgalbW);
+			//$('#infoblock').height($imgalbW);		
+			//$bodyH = $('body').height();			
+			//$imgalbH = $('#imgalb').height();
+			//$btnplayH = $('#btnplay').height();
+			//$mainbox = $bodyH - ($imgalbH + $btnplayH+80) ;
+			//$mainbox = $mainbox / 2;			
 				
-			$('#mainbox').css('padding-top', $mainbox);
+			//$('#mainbox').css('padding-top', $mainbox);
 		}, 10000);
+		
+				$bodyH = $('body').height();	
+				$blH = $('#bl-h').height();	
+				$blI = $('#imgalb').height() +48;
+				$blP = $('#bl-p').height() +16;	
+				
+				$blL = $('#bl-l').height() +16;	
+				$blB = $('#bl-b').height() +16;
+				alert('Высота: ' +$bodyH+', Высота шапки:'+$blH+', Высота Изображения:'+$blI+', Высота Лайков:'+$blL+', Высота подвала:'+$blB+'.')
+				$blHFIX = $blH + $blP + $blL + $blB;
+				$blHFIX = $bodyH - $blHFIX;
+				$('#mainbox').height($blHFIX );
+				$('#imgalb2').height($blHFIX -16);
+				$('#imgalb2').width($blHFIX -16);
 	</script>
 	
 	<script type="text/javascript" src="js/uppod-0.5.24.js"></script>

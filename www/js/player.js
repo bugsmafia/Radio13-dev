@@ -114,26 +114,26 @@ $(window).load(function(){
 			if (player.getStatus() == 0){
 				jp_container_1
 				$('#stream').removeClass('red orange waves-green').addClass('green waves-red');
-				document.getElementById('stream').innerHTML = "Выключить радио  <i class=\"large mdi-av-stop\"></i>";
+				document.getElementById('stream').innerHTML = "<i class=\"material-icons\">pause</i>";
 				$('#stream').attr('onclick', '');
 			}
 			
 			if(player.getStatus() == 1){
 				$('#stream').removeClass('green orange waves-red').addClass('red waves-green');
 				// $('#stream').text('Выключить радио <i class="large mdi-av-stop"></i>');
-				document.getElementById('stream').innerHTML = "Выключить радио  <i class=\"large mdi-av-stop\"></i>";
+				document.getElementById('stream').innerHTML = "<i class=\"material-icons\">pause</i>";
 				$('#stream').attr('onclick', 'player.Play(\'audio/none.mp3\');');
 			}
 			
 			if(player.getStatus() == 2){
 				$('#stream').removeClass('orange red waves-green').addClass('green waves-red');
-				document.getElementById('stream').innerHTML = "Включить радио  <i class=\"large mdi-av-play-arrow\"></i>";
+				document.getElementById('stream').innerHTML = "<i class=\"material-icons\">play_arrow</i>";
 				$('#stream').attr('onclick', '');
 			}
 			
 			if(player.getStatus() == 3){
 				$('#stream').removeClass('green red').addClass('orange');
-				document.getElementById('stream').innerHTML = "Буферизация потока...";
+				document.getElementById('stream').innerHTML = "<i class=\"material-icons\">forward_5</i>";
 			}
 			
 		}
