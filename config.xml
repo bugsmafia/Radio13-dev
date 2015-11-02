@@ -27,7 +27,7 @@
   <gap:plugin name="org.apache.cordova.splashscreen"/>
   
   
-  <preference name="KeepRunning" value="false"/> // Сохраняем приложение запущенным в фоновом режиме
+
   <preference name="SplashScreenDelay" value="10000"/> // Заставка
   <preference name="LoadingDialog" value="My Title,My Message"/> // Некий заголовок
   <preference name="ShowTitle" value="true"/> // Заголовок в шапке
