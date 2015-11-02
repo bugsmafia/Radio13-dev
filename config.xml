@@ -19,12 +19,12 @@
   <preference name="disable-cursor" value="false"/>
   <preference name="android-minSdkVersion" value="7"/>
   <preference name="android-installLocation" value="auto"/>
-  <gap:plugin name="org.apache.cordova.device"/>
-  <gap:plugin name="org.apache.cordova.device-motion"/>
-  <gap:plugin name="org.apache.cordova.dialogs"/>
-  <gap:plugin name="org.apache.cordova.media"/>
-  <gap:plugin name="org.apache.cordova.network-information"/>
-  <gap:plugin name="org.apache.cordova.splashscreen"/>
+//  <gap:plugin name="org.apache.cordova.device"/>
+//  <gap:plugin name="org.apache.cordova.device-motion"/>
+//  <gap:plugin name="org.apache.cordova.dialogs"/>
+//  <gap:plugin name="org.apache.cordova.media"/>
+//  <gap:plugin name="org.apache.cordova.network-information"/>
+//  <gap:plugin name="org.apache.cordova.splashscreen"/>
   
   
   <preference name="KeepRunning" value="false"/> // Сохраняем приложение запущенным в фоновом режиме
@@ -32,6 +32,7 @@
   <preference name="LoadingDialog" value="My Title,My Message"/> // Некий заголовок
   <preference name="ShowTitle" value="true"/> // Заголовок в шапке
   <preference name="LogLevel" value="VERBOSE"/> // Лог ошибок
+  <preference name="AndroidLaunchMode" value="singleTask"/> // standard , singleTop , singleTask ,singleInstance.
   
   
   <gap:platform name="android" />
