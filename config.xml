@@ -1,4 +1,4 @@
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.radio13.music" version="1.1">
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.radio13.music" version="1.2">
   <name>Radio13</name>
   <description>На Радио13 мы объединили лучшие вкусы, которые формировались в 1990-е и 2000-е годы. Radio13 - это станция, где звучат только хиты. Мы предоставляем лучший микс из зарубежных и Российских исполнителей музыки. Приглашаем в нашу компанию всех, для кого жизнь прекрасна и удивительна!</description>
   <author href="http://vk.com/bugsmafia" email="bugsmafia@gmail.com">Отдел разработки</author>
@@ -25,6 +25,14 @@
   <gap:plugin name="org.apache.cordova.media"/>
   <gap:plugin name="org.apache.cordova.network-information"/>
   <gap:plugin name="org.apache.cordova.splashscreen"/>
+  
+  
+  <preference name="KeepRunning" value="false"/> // Сохраняем приложение запущенным в фоновом режиме
+  <preference name="SplashScreenDelay" value="10000"/> // Заставка
+  <preference name="LoadingDialog" value="My Title,My Message"/> // Некий заголовок
+  <preference name="ShowTitle" value="true"/> // Заголовок в шапке
+  <preference name="LogLevel" value="VERBOSE"/> // Лог ошибок
+  
   
   <gap:platform name="android" />
   <icon src="icon.png"/>
@@ -53,9 +61,5 @@
   <gap:splash src="www/res/screen/ios/screen-ipad-landscape.png" gap:platform="ios" width="1024" height="768"/>
   <gap:splash src="www/res/screen/windows-phone/screen-portrait.jpg" gap:platform="winphone"/>
   <access origin="*"/>
-  
 
-  <gap:plugin name="de.appplant.cordova.plugin.local-notification" version="0.8.1" />
-<gap:plugin name="nl.x-services.plugins.toast" version="1.0" />
 </widget>
-
