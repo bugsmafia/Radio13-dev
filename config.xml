@@ -1,4 +1,4 @@
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.radio13.music" version="1.2.1">
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.radio13.music" version="1.2.2">
   <name>Radio13</name>
   <description>На Радио13 мы объединили лучшие вкусы, которые формировались в 1990-е и 2000-е годы. Radio13 - это станция, где звучат только хиты. Мы предоставляем лучший микс из зарубежных и Российских исполнителей музыки. Приглашаем в нашу компанию всех, для кого жизнь прекрасна и удивительна!</description>
   <author href="http://vk.com/bugsmafia" email="bugsmafia@gmail.com">Отдел разработки</author>
@@ -19,12 +19,12 @@
   <preference name="disable-cursor" value="false"/>
   <preference name="android-minSdkVersion" value="7"/>
   <preference name="android-installLocation" value="auto"/>
-//  <gap:plugin name="org.apache.cordova.device"/>
-//  <gap:plugin name="org.apache.cordova.device-motion"/>
-//  <gap:plugin name="org.apache.cordova.dialogs"/>
-//  <gap:plugin name="org.apache.cordova.media"/>
-//  <gap:plugin name="org.apache.cordova.network-information"/>
-//  <gap:plugin name="org.apache.cordova.splashscreen"/>
+ // gap:plugin name="org.apache.cordova.device"/>
+// gap:plugin name="org.apache.cordova.device-motion"/>
+// gap:plugin name="org.apache.cordova.dialogs"/>
+// gap:plugin name="org.apache.cordova.media"/>
+// gap:plugin name="org.apache.cordova.network-information"/>
+// gap:plugin name="org.apache.cordova.splashscreen"/>
   
   
   <preference name="KeepRunning" value="false"/> // Сохраняем приложение запущенным в фоновом режиме
