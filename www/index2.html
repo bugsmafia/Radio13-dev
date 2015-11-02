@@ -8,7 +8,7 @@
 	<body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
 	<div id="bl-h" class="mdl-grid" style="padding: 0px;">
 		<div class="mdl-cell mdl-cell--2-col"></div>
-		<div class="mdl-cell mdl-cell--8-col mdl-typography--text-center"><span id="artist">Поиск сервера</span><span id="song">Загружаем</span></div>
+		<div class="mdl-cell mdl-cell--8-col mdl-typography--text-center"><span id="artist">РџРѕРёСЃРє СЃРµСЂРІРµСЂР°</span><span id="song">Р—Р°РіСЂСѓР¶Р°РµРј</span></div>
 		<div class="mdl-cell mdl-cell--2-col"></div>
 	</div>
 	<div id="mainbox">
@@ -28,7 +28,7 @@
 	</div>
 	<div  id="bl-l" class="mdl-grid">
 		<div class="mdl-cell mdl-cell--3-col"></div>
-		<div class="mdl-cell mdl-cell--3-col mdl-typography--text-right"><a href="#" class="mdl-color-text--white" onclick="doAction($i,'like');"><span id="like" class="mdl-badge" data-badge="-">МНЕ НРАВИТСЯ</span></a></div>
+		<div class="mdl-cell mdl-cell--3-col mdl-typography--text-right"><a href="#" class="mdl-color-text--white" onclick="doAction($i,'like');"><span id="like" class="mdl-badge" data-badge="-">РњРќР• РќР РђР’РРўРЎРЇ</span></a></div>
 		<div class="mdl-cell mdl-cell--3-col mdl-typography--text-center"><a href="#" class="mdl-color-text--white" onclick="doAction($i,'unlike');"><span id="unlike" class="material-icons mdl-badge" data-badge="-">thumb_down</span></a></div>
 		<div class="mdl-cell mdl-cell--3-col"></div>
 	</div>
@@ -43,13 +43,13 @@
 			<div class="player" id="player" style="display:none;"></div>
 
 			<div id="p-setting"  class="col s6" style="display:none;">
-					<h4>Настройки</h4>
+					<h4>РќР°СЃС‚СЂРѕР№РєРё</h4>
 					<form action="#">
-						<label for="bitrate">Качество трансляции (битрейд)</label>
+						<label for="bitrate">РљР°С‡РµСЃС‚РІРѕ С‚СЂР°РЅСЃР»СЏС†РёРё (Р±РёС‚СЂРµР№Рґ)</label>
 						<select id="bitrate">
-							<option value="aac-32">AAC 32 кб/c</option>
-							<option value="aac-64" >AAC 64 кб/c</option>
-							<option value="mp3-128" selected>MP3 128 кб/c</option>
+							<option value="aac-32">AAC 32 РєР±/c</option>
+							<option value="aac-64" >AAC 64 РєР±/c</option>
+							<option value="mp3-128" selected>MP3 128 РєР±/c</option>
 						</select>
 					</form>
 				</div>
@@ -458,226 +458,7 @@ transition:1s filter linear}
 	</style>
 	<script src="js/material.js"></script>
 	<script src="js/jquery-2.1.4.min.js"></script>
-	
-	<script>
-	$i = 0;
-	$id = 1;
 
-	$.getJSON("http://app.radio13.ru/status/json.php?i=i", function(info) {
-			$i = info.i;
-			$l = info.l;
-			$u = info.u;
-			$sv = parseFloat($l) + parseFloat($u);
-			if($sv != 0){
-				var prc = Math.round(($l * 100) / $sv);
-				$('.determinate').width(prc+'%');
-			}
-			else {
-				$('.determinate').width('0%');
-			}
-
-			$('#like').attr('data-badge', $l);
-			$('#unlike').attr('data-badge', $u);
-			if ($i != $id){
-				$.getJSON("http://app.radio13.ru/status/json.php?i=l", function(load) {
-					$id = load.id;
-					$a = load.a;
-					$s = load.s;
-					$c = load.c;
-					$vkmus = load.vk;
-					$('#artist').text($a);
-					$('#song').text($s);
-					$('#imgalb').attr('data-caption', $a + ' - ' + $s);
-					$('body').attr('id', $id);
-					$('.nmbl').attr('id', $id +'_likes');
-					$('.nmbu').attr('id', $id +'_unlikes');
-					
-					
-
-
-					$.ajax({
-						url: "http://ws.audioscrobbler.com/2.0/?method=album.getinfo&artist="+$a+"&album="+$s+"&api_key=88571316d4e244f24172ea9a9bf602fe",
-						type: "GET",
-						dataType: "xml",
-						success: function(xml) {
-							$(xml).find('album').each(function(){
-							$(this).find('image').each(function(){
-							var img = $(this).attr('size');
-							if(img == "mega")
-							if ($(this).text()){
-								$('#imgalb2').css('background-image', 'url("'+$(this).text()+'")');
-								$('#imgalb2').css('background-size', 'cover');
-								$('#imgalb2').css('background-position', '50%');
-								
-								$('#blurimg').css('background-image', 'url("'+$(this).text()+'")');
-								
-								
-							}
-							else {
-								$('#imgalb2').css('background-image', 'url("images/no-image.png")');
-								$('#imgalb2').css('background-size', 'cover');
-								$('#imgalb2').css('background-position', '50%');
-								$('#blurimg').css('background-image', 'url("images/no-image.png")');
-							}
-							})
-							});
-						},
-						statusCode: {
-							400: function() {
-								$('#imgalb2').css('background-image', 'url("images/no-image.png")');
-								$('#imgalb2').css('background-size', 'cover');
-								$('#imgalb2').css('background-position', '50%');
-								$('#blurimg').css('background-image', 'url("images/no-image.png")');
-							}
-						}
-					});
-
-				});
-
-			}
-		});
-		setInterval(function(){
-			$.getJSON("http://app.radio13.ru/status/json.php?i=i", function(info) {
-				$i = info.i;
-				$l = info.l;
-				$u = info.u;
-				$sv = parseFloat($l) + parseFloat($u);
-				if($sv != 0){
-					var prc = Math.round(($l * 100) / $sv);
-					$('.determinate').width(prc+'%');
-				}
-				else {
-					$('.determinate').width('0%');
-				}
-
-				$('#' + $i + '_likes').text($l);
-				$('#' + $i + '_unlikes').text($u);
-				$('#like').attr('data-badge', $l);
-				$('#unlike').attr('data-badge', $u);
-				if ($i != $id){
-					$.getJSON("http://app.radio13.ru/status/json.php?i=l", function(load) {
-						$id = load.id;
-						$a = load.a;
-						$s = load.s;
-						$c = load.c;
-						$vkmus = load.vk;
-						$('#artist').text($a);
-						$('#song').text($s);
-						$('#imgalb').attr('data-caption', $a + ' - ' + $s);
-						$('body').attr('id', $id);
-						$('.nmbl').attr('id', $id +'_likes');
-						$('.nmbu').attr('id', $id +'_unlikes');
-
-						$.ajax({
-							url: "http://ws.audioscrobbler.com/2.0/?method=album.getinfo&artist="+$a+"&album="+$s+"&api_key=88571316d4e244f24172ea9a9bf602fe",
-							type: "GET",
-							dataType: "xml",
-							success: function(xml) {
-								$(xml).find('album').each(function(){
-									$(this).find('image').each(function(){
-										var img = $(this).attr('size');
-										if(img == "mega")
-										if ($(this).text()){
-											$('#imgalb2').css('background-image', 'url("'+$(this).text()+'")');
-											$('#imgalb2').css('background-size', 'cover');
-											$('#blurimg').css('background-image', 'url("'+$(this).text()+'")');
-										}
-										else {
-											$('#imgalb2').css('background-image', 'url("images/no-image.png")');
-											$('#imgalb2').css('background-size', 'cover');
-											$('#blurimg').css('background-image', 'url("images/no-image.png")');
-										}
-									})
-								});
-							},
-							statusCode: {
-								400: function() {
-									$('#imgalb2').css('background-image', 'url("images/no-image.png")');
-									$('#imgalb2').css('background-size', 'cover');
-									$('#blurimg').css('background-image', 'url("images/no-image.png")');
-								}
-							}
-						});
-
-					});
-
-				}
-			});
-			//$imgalbW = $('#imgalb').width();
-			//$('#imgalb').height($imgalbW);
-			//$('#infoblock').height($imgalbW);		
-			//$bodyH = $('body').height();			
-			//$imgalbH = $('#imgalb').height();
-			//$btnplayH = $('#btnplay').height();
-			//$mainbox = $bodyH - ($imgalbH + $btnplayH+80) ;
-			//$mainbox = $mainbox / 2;			
-				
-			//$('#mainbox').css('padding-top', $mainbox);
-		}, 10000);
-		
-				$bodyH = $('body').height();
-				$bodyW = $('body').width();	
-				$blH = $('#bl-h').height();	
-				$blI = $('#imgalb').height() +48;
-				$blP = $('#bl-p').height() +16;	
-				
-				$blL = $('#bl-l').height() +16;	
-				$blB = $('#bl-b').height() +16;
-				//alert('Высота: ' +$bodyH+', Высота шапки:'+$blH+', Высота Изображения:'+$blI+', Высота Лайков:'+$blL+', Высота подвала:'+$blB+'.')
-				$blHFIX = $blH + $blP + $blL + $blB;
-				$blHFIX = $bodyH - $blHFIX;
-				$('#mainbox').height($blHFIX );
-				if ($blHFIX >= $bodyW) {
-					$('#imgalb2').height($bodyW - (13 / 100) * $bodyW);
-					$('#imgalb2').width($bodyW - (13 / 100) * $bodyW);
-					//alert('2');
-					$imagesmargintop = $bodyW - (13 / 100) * $bodyW;
-					$imagesmargintop = $blHFIX - $imagesmargintop;
-					$imagesmargintop = $imagesmargintop / 2;
-					$('#imgalb2').css('margin-top', $imagesmargintop);
-				}
-				else {
-					$('#imgalb2').height($blHFIX -16);
-					$('#imgalb2').width($blHFIX -16);
-					//alert('3');
-				}
-				
-				
-				
-// Сообщение вверху
-//window.plugins.toast.showShortTop('Hello there!', function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)})
-// Сообщение внизу
-//window.plugins.toast.showLongBottom('Hello there!', function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)})
-// Сообщение по центру
-//window.plugins.toast.show('Hello there!', 'long', 'center', function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)})
-
-// <a class="up btn-floating btn-large green tooltipped" onclick="doAction($i,'like');" data-tooltip="Мне нравится!"><i class="mdi-action-thumb-up"></i></a>
-		function doAction(id,type){
-			$.post('http://app.radio13.ru/vote/doAjaxMobile.php', {id:$i, type:type}, function(data){
-				if(isNaN(parseFloat(data))){
-					if (data == 'error1'){
-						// $('#error1').openModal();
-						// $('.check').addClass('ok red-text');
-						// $('.check').text('Ошибка!');
-						alert('error1');
-					}
-					if (data == 'error100'){
-						$('#error100').openModal();
-						$('.check').addClass('ok red-text');
-						$('.check').text('Ошибка!');
-						alert('error100');
-					}
-					else {
-						toast(data, 5000)
-					}
-
-				}
-				else{
-					$('#'+id+'_'+type+'s').text(data);
-				}
-			});
-		}
-	</script>
 	
 	<script type="text/javascript" src="js/uppod-0.5.24.js"></script>
 	<script type="text/javascript" src="js/uppod_api.js"></script>
