@@ -52,9 +52,9 @@ function windowSize(){
 	}
 }
 function StatusTrackUpdate(){
-	alert('StatusTrackUpdate');
+
 	jQuery.getJSON("http://app.radio13.ru/status/json.php?i=l", function(load) {
-		alert('StatusTrackUpdate getJSON');
+
 		$id = load.id;
 		$a = load.a;
 		$s = load.s;
