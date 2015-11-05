@@ -6,6 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- load MUI -->
     <link href="css/mui.min.css" rel="stylesheet" type="text/css" />
+	<script>
+		if (typeof console  != "undefined") 
+  if (typeof console.log != 'undefined')
+    console.olog = console.log;
+else
+  console.olog = function() {};
+
+console.log = function(message) {
+  console.olog(message);
+  $('#debugDiv').append('<p>' + message + '</p>');
+};
+console.error = console.debug = console.info =  console.log
+	</script>
 	<script src="js/jquery-2.1.4.min.js"></script>
     <script src="js/mui.min.js"></script>
 	<script src="js/script.js"></script>
@@ -105,7 +118,7 @@
 		    z-index: -1;
 	}
 	.bg-1 {
-		 box-shadow: 0 0 24em 20em #f80;
+
 	}
 	.track-img {
 		background: url(images/no-image.png);
