@@ -49,7 +49,7 @@ function windowSize(){
 	}
 }
 function StatusTrackUpdate(){
-	$.getJSON("https://app.radio13.ru/status/json.php?i=l", function(load) {
+	$.getJSON("http://app.radio13.ru/status/json.php?i=l", function(load) {
 		$id = load.id;
 		$a = load.a;
 		$s = load.s;
@@ -66,7 +66,7 @@ function StatusTrackUpdate(){
 		$('body').attr('id', $id);
 	
 		$.ajax({
-			url: "https://ws.audioscrobbler.com/2.0/?method=album.getinfo&artist="+$a+"&album="+$s+"&api_key=88571316d4e244f24172ea9a9bf602fe",
+			url: "http://ws.audioscrobbler.com/2.0/?method=album.getinfo&artist="+$a+"&album="+$s+"&api_key=88571316d4e244f24172ea9a9bf602fe",
 			type: "GET",
 			dataType: "xml",
 			success: function(xml) {				
@@ -101,7 +101,7 @@ $(window).load(StatusTrackUpdate);
 $i = 0;
 $id = 1;
 setInterval(function(){
-	$.getJSON("https://app.radio13.ru/status/json.php?i=i", function(info) {
+	$.getJSON("http://app.radio13.ru/status/json.php?i=i", function(info) {
 		
 		$i = info.i; // Уникальный ID текущего трека
 		$l = info.l; // Лайк
