@@ -28,14 +28,14 @@ function windowSize(){
 		$('#status-track-img').css('height',$DigPlayBtnHeaderHFix);
 		$('#play-btn-line').css('line-height',$DigPlayBtnHeaderHFix+'px');
 		if ($debug = 1){
-			console.log('Высота кнопки больше. Формула #1');
+			//console.log('Высота кнопки больше. Формула #1');
 		}
 	} else {
 		$('#status-track-img').css('width',$BigPlayBtn);
 		$('#status-track-img').css('height',$BigPlayBtn);
 		$('#play-btn-line').css('line-height',$BigPlayBtn+'px');
 		if ($debug = 1){
-			console.log('Высота кнопки меньше. Формула #2');
+			//console.log('Высота кнопки меньше. Формула #2');
 		}
 	}
 	
@@ -44,8 +44,8 @@ function windowSize(){
 	$('#bg').css('left',$bgW);
 	$('#bg').css('top',$bgH);
 	if ($debug = 1){
-		console.log('Размер экрана изменился - '+$windowsW+' x '+$windowsH);
-		console.log('Размер области изменились - '+$bodyW+' x '+$bodyH);
+		//console.log('Размер экрана изменился - '+$windowsW+' x '+$windowsH);
+		//console.log('Размер области изменились - '+$bodyW+' x '+$bodyH);
 	}
 }
 function StatusTrackUpdate(){
@@ -162,4 +162,16 @@ $('#volume').click(function(e) {
 	var audio = document.getElementById("audioplay"); // Ищем наш плеер
 	audio.volume = $volumeFinal; // Передаем плееру данные громкости
 });
+
+if (typeof console  != "undefined") 
+  if (typeof console.log != 'undefined')
+    console.olog = console.log;
+else
+  console.olog = function() {};
+
+console.log = function(message) {
+  console.olog(message);
+  $('#debugDiv').append('<p>' + message + '</p>');
+};
+console.error = console.debug = console.info =  console.log
 });

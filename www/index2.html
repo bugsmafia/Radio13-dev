@@ -81,26 +81,9 @@
 			<div class="mui-row">
 				<div class="mui-col-xs-12 mui-col-md-12">
 					<div class="mui--text-headline">Логи ошибок</div>
-					<fieldset id="console-log-div"></fieldset>
-					<div id="thediv">
-   <p>Click the button to show this div as a JavaScript object and a 
-   <em>DOM</em> node.</p>
-   <button id="thebutton">show it</button>
-</div>
-<script>
-  document.getElementById('thebutton').addEventListener('click', function(e){
-    var divid = document.getElementById('thediv');
-    console.log('Showing the div element as a DOM node.');	
-    console.dirxml(divid);
-    console.log('Showing the div element as a JavaScript object.');
-    console.dir(divid);
-    console.log('Showing the div element via a plain console.log.');
-    console.log(divid);
-    console.log('Showing the click event via a plain console.log.');
-    console.log(e);
-    console.log('Argument logging for %s', thediv.id, thediv)
-  });
-</script>
+					<fieldset id="debugDiv"></fieldset>
+					
+
 				</div>				
 			</div>
 		</div>
