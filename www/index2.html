@@ -7,29 +7,11 @@
     <!-- load MUI -->
     <link href="css/mui.min.css" rel="stylesheet" type="text/css" />
 	<script>
-console.error = console.debug = console.info =  console.log	
-if (typeof console  != "undefined") 
-if (typeof console.log != 'undefined')
-console.olog = console.log;
-else
-console.olog = function() {};
-console.log = function(message) {
-  console.olog(message);
-  $('#debugDiv').append('<p>' + message + '</p>');
-};
-console.log = function(error) {
-  console.olog(error);
-  $('#debugDiv').append('<p>' + error + '</p>');
-};
-console.log = function(debug) {
-  console.olog(debug);
-  $('#debugDiv').append('<p>' + debug + '</p>');
-};
-console.log = function(info) {
-  console.olog(info);
-  $('#debugDiv').append('<p>' + info + '</p>');
-};
 
+
+
+console.log = function(message) {$('#debugDiv').append('<p>' + message + '</p>');};
+console.error = console.debug = console.info =  console.log
 	</script>
 	<script type="text/javascript" src="cordova.js"></script>
 	<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
@@ -108,7 +90,7 @@ console.log = function(info) {
 				<div class="mui-col-xs-12 mui-col-md-12">
 					<div class="mui--text-headline">Логи ошибок</div>
 					<fieldset id="debugDiv"></fieldset>
-					
+					<div id="log"></div>
 
 				</div>				
 			</div>
