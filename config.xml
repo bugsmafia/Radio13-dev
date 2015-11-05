@@ -3,11 +3,9 @@
   <description>На Радио13 мы объединили лучшие вкусы, которые формировались в 1990-е и 2000-е годы. Radio13 - это станция, где звучат только хиты. Мы предоставляем лучший микс из зарубежных и Российских исполнителей музыки. Приглашаем в нашу компанию всех, для кого жизнь прекрасна и удивительна!</description>
   <author href="http://vk.com/bugsmafia" email="bugsmafia@gmail.com">Отдел разработки</author>
   <content src="index2.html"/>
-  <access origin="http://192.168.0.105:9090/*" />
-  <access origin="http://192.168.0.100:9090/*" />
   <access origin="http://192.168.0.105:8080/*" />
 <feature name="debug-server" required="true">
-    <param name="domain" value="http://192.168.0.105:9090/"/>
+    <param name="domain" value="http://localhost:8080/"/>
     <param name="key" value="1543676"/>
   </feature>
   <gap:platform name="android" />
