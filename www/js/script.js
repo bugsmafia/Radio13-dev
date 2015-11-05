@@ -1,7 +1,10 @@
 jQuery(document).ready(function() {
 $debug = 1; // Отладка
 $SpeedUpd = 5000;
-
+$i = 0;
+$id = 1;
+$playerLoad = 0;
+alert('1');
 function windowSize(){
 	$windowsW = jQuery(document).width(); // Ширина экрана
 	$windowsH = jQuery(document).height(); // Высота экрана
@@ -49,7 +52,9 @@ function windowSize(){
 	}
 }
 function StatusTrackUpdate(){
+	alert('StatusTrackUpdate');
 	jQuery.getJSON("http://app.radio13.ru/status/json.php?i=l", function(load) {
+		alert('StatusTrackUpdate getJSON');
 		$id = load.id;
 		$a = load.a;
 		$s = load.s;
@@ -91,15 +96,20 @@ function StatusTrackUpdate(){
 			}
 		});
 
-	});
+	}).fail(function(jqXHR) {
+    if (jqXHR.status == 404) {
+        alert("404 Not Found");
+    } else {
+        alert("Other non-handled error type");
+    }
+});
 	windowSize();
 }
 
 jQuery(window).load(windowSize); // при загрузке
 jQuery(window).resize(windowSize); // Выполняем каждый раз при имзенении размера экрана
 jQuery(window).load(StatusTrackUpdate);
-$i = 0;
-$id = 1;
+
 setInterval(function(){
 	jQuery.getJSON("http://app.radio13.ru/status/json.php?i=i", function(info) {
 		
@@ -124,7 +134,7 @@ setInterval(function(){
 
 
 
-$playerLoad = 0;
+
 jQuery( "#status-track-img" ).click(function() {
 	if ($playerLoad == 0){
 		jQuery('#audio').html('<audio id="audioplay" controls preload="none"><source src="http://play.radio13.ru" type="audio/mpeg"></audio>');
