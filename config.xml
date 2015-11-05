@@ -1,27 +1,11 @@
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.radio13.music" version="1.2.6.7">
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.radio13.music" version="1.2.6.9">
   <name>Radio13</name>
   <description>На Радио13 мы объединили лучшие вкусы, которые формировались в 1990-е и 2000-е годы. Radio13 - это станция, где звучат только хиты. Мы предоставляем лучший микс из зарубежных и Российских исполнителей музыки. Приглашаем в нашу компанию всех, для кого жизнь прекрасна и удивительна!</description>
   <author href="http://vk.com/bugsmafia" email="bugsmafia@gmail.com">Отдел разработки</author>
   <content src="index2.html"/>
-  <preference name="orientation" value="default"/>
-  <preference name="target-device" value="universal"/>
-  <preference name="fullscreen" value="false"/>
-  <preference name="webviewbounce" value="true"/>
-  <preference name="prerendered-icon" value="true"/>
-  <preference name="stay-in-webview" value="false"/>
-  <preference name="detect-data-types" value="true"/>
-  <preference name="exit-on-suspend" value="false"/>
-  <preference name="show-splash-screen-spinner" value="true"/> 
-  <preference name="auto-hide-splash-screen" value="true"/>
-  <preference name="disable-cursor" value="false"/>
-  <preference name="android-minSdkVersion" value="7"/>
-  <preference name="android-installLocation" value="auto"/>
-  <gap:plugin name="org.apache.cordova.device"/>
- <gap:plugin name="org.apache.cordova.device-motion"/>
- <gap:plugin name="org.apache.cordova.dialogs"/>
- <gap:plugin name="org.apache.cordova.media"/>
- <gap:plugin name="org.apache.cordova.network-information"/>
- <gap:plugin name="org.apache.cordova.splashscreen"/>
+<access origin="*" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
   
   
   
@@ -53,8 +37,6 @@
   <gap:splash src="www/res/screen/ios/screen-ipad-portrait.png" 						gap:platform="ios"				width="768" height="1024"/>
   <gap:splash src="www/res/screen/ios/screen-ipad-landscape.png" 					gap:platform="ios" 				width="1024" height="768"/>
   <gap:splash src="www/res/screen/windows-phone/screen-portrait.jpg" 			gap:platform="winphone"/>
-  <access origin="*"/>
-  <allow-intent href="http://*/*" />
-  <allow-intent href="https://*/*" />
+  
 
 </widget>
