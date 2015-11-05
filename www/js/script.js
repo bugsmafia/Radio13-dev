@@ -162,5 +162,4 @@ $('#volume').click(function(e) {
 	var audio = document.getElementById("audioplay"); // Ищем наш плеер
 	audio.volume = $volumeFinal; // Передаем плееру данные громкости
 });
-
 });
