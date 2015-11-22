@@ -17,12 +17,14 @@ function windowSize(){
 
 	$VolumeH = jQuery('#Volume').height(); // Уровня громкости
 	
-	$ContPlayL = jQuery('#cont-play-left').width(); //Страница: Статус вопроизведения. Левый блок: Ширина.
+
 	$ContPlayC = jQuery('#cont-play-center').width(); //Страница: Статус вопроизведения. Центральный блок: Ширина.
-	$ContPlayR = jQuery('#cont-play-right').width(); //Страница: Статус вопроизведения. Правый блок: Ширина.
-	
-	$BigPlayBtn = $windowsW - $ContPlayL - $ContPlayR - 60; // Расчитываем ширину кнопки\изображения статус стрека
-	$BigPlayBtn = $BigPlayBtn - 90;
+
+	if ($debug = 1){
+		console.log($windowsW+' и еще -40');
+	}
+	$BigPlayBtn = $windowsW; // Расчитываем ширину кнопки\изображения статус стрека
+	$BigPlayBtn = $BigPlayBtn - 40;
 	
 	$DigPlayBtnHeaderHFix = $windowsH - $headerH;
 	if ($DigPlayBtnHeaderHFix <= $BigPlayBtn) {
@@ -31,31 +33,15 @@ function windowSize(){
 		jQuery('.status-wrap').css('height',$DigPlayBtnHeaderHFix);
 		jQuery('#play-btn-line').css('line-height',$DigPlayBtnHeaderHFix+'px');
 		if ($debug = 1){
-			//console.log('Высота кнопки больше. Формула #1');
+			console.log('Высота кнопки больше. Формула #1');
 		}
 	} else {
 		jQuery('.status-wrap').css('width',$BigPlayBtn);
 		jQuery('.status-wrap').css('height',$BigPlayBtn);
 		jQuery('#play-btn-line').css('line-height',$BigPlayBtn+'px');
-		$volumRadius = ($BigPlayBtn / 2) + 20;
-		$("#volum").roundSlider({
-			sliderType: "min-range",
-			circleShape: "custom-quarter",
-			min: 0,
-			max: 10,
-			startAngle: 225,
-			editableTooltip: false,
-			radius: $volumRadius,
-			width: 20,
-			handleShape: "dot",
-			tooltipFormat: "tooltipVal1"
-		});
-		$volumRadiusM = -1 * $volumRadius;
-		jQuery('#volum .rs-container').css('margin-left', $volumRadiusM);
-		jQuery('#volum .rs-container').css('margin-top','-445px');
 
 		if ($debug = 1){
-			//console.log('Высота кнопки меньше. Формула #2');
+			console.log('Высота кнопки меньше. Формула #2');
 		}
 	}
 	
