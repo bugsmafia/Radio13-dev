@@ -99,6 +99,8 @@ function StatusTrackUpdate(){
 				}
 			}
 		});
+		 jQuery("#track-title").fitText();
+		jQuery("#track-song").fitText();
 
 	}).fail(function(jqXHR) {
     if (jqXHR.status == 404) {
@@ -221,6 +223,34 @@ function tooltipVal1(args) {
 	];
     return months[args.value];
 }
+
+
+
+
+
+
+
+
+(function( $ ){
+  $.fn.fitText = function( kompressor, options ) {
+    var compressor = kompressor || 1,
+        settings = $.extend({
+          'minFontSize' : Number.NEGATIVE_INFINITY,
+          'maxFontSize' : Number.POSITIVE_INFINITY
+        }, options);
+    return this.each(function(){
+      var $this = $(this);
+      var resizer = function () {
+        $this.css('font-size', Math.max(Math.min($this.width() / (compressor*10), parseFloat(settings.maxFontSize)), parseFloat(settings.minFontSize)));
+      };
+      resizer();
+      $(window).on('resize.fittext orientationchange.fittext', resizer);
+    });
+  };
+  jQuery("#track-title").fitText();
+  jQuery("#track-song").fitText();
+})( jQuery );
+
 
 });
 
