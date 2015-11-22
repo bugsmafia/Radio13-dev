@@ -19,6 +19,11 @@ module.exports = {
 
 'use strict';
 
+// Global vars
+var gDoc = document,
+    gDocEl = gDoc.documentElement,
+    gWin = window;
+
 
 /**
  * Add a class to an element.
@@ -189,22 +194,62 @@ function jqLiteOne(element, type, callback, useCapture) {
 
 
 /**
+ * Get or set horizontal scroll position
+ * @param {Element} element - The DOM element
+ * @param {number} [value] - The scroll position
+ */
+function jqLiteScrollLeft(element, value) {
+  // get
+  if (value === undefined) {
+    if (element === gWin) {
+      var t = (gWin.pageXOffset || gDocEl.scrollLeft)
+      return t - (gDocEl.clientLeft || 0);
+    } else {
+      return element.scrollLeft;
+    }
+  }
+
+  // set
+  if (element === gWin) gWin.scrollTo(value, jqLiteScrollTop(gWin));
+  else element.scrollLeft = value;
+}
+
+
+/**
+ * Get or set vertical scroll position
+ * @param {Element} element - The DOM element
+ * @param {number} value - The scroll position
+ */
+function jqLiteScrollTop(element, value) {
+  //return _scrollPos(element, 'top', value);
+
+  // get
+  if (value === undefined) {
+    if (element === gWin) {
+      return (gWin.pageYOffset || gDocEl.scrollTop) - (gDocEl.clientTop || 0);
+    } else {
+      return element.scrollTop;
+    }
+  }
+
+  // set
+  if (element === gWin) gWin.scrollTo(jqLiteScrollLeft(gWin), value);
+  else element.scrollTop = value;
+}
+
+
+/**
  * Return object representing top/left offset and element height/width.
  * @param {Element} element - The DOM element.
  */
 function jqLiteOffset(element) {
-  var win = window,
-      docEl = document.documentElement,
-      rect = element.getBoundingClientRect(),
-      viewLeft,
-      viewTop;
-
-  viewLeft = (win.pageXOffset || docEl.scrollLeft) - (docEl.clientLeft || 0);
-  viewTop = (win.pageYOffset || docEl.scrollTop) - (docEl.clientTop || 0);
+  var rect = element.getBoundingClientRect(),
+      scrollTop = jqLiteScrollTop(gWin),
+      scrollLeft = jqLiteScrollLeft(gWin);
 
   return {
-    top: rect.top + viewTop,
-    left: rect.left + viewLeft,
+    top: rect.top + scrollTop,
+    left: rect.left + scrollLeft,
     height: rect.height,
     width: rect.width
   };
@@ -361,7 +406,13 @@ module.exports = {
   removeClass: jqLiteRemoveClass,
 
   /** Check JavaScript variable instance type */
-  type: jqLiteType
+  type: jqLiteType,
+
+  /** Get or set horizontal scroll position */
+  scrollLeft: jqLiteScrollLeft,
+
+  /** Get or set vertical scroll position */
+  scrollTop: jqLiteScrollTop
 };
 
 
@@ -377,11 +428,13 @@ module.exports = {
 var config = require('../config.js'),
     jqLite = require('./jqLite.js'),
     win = window,
-    doc = window.document,
+    doc = document,
     nodeInsertedCallbacks = [],
+    scrollLock = 0,
+    scrollLockPos,
+    scrollLockEl,
     head,
     _supportsPointerEvents;
-
 
 head = doc.head || doc.getElementsByTagName('head')[0] || doc.documentElement;
 
@@ -406,18 +459,16 @@ function logFn() {
  * @param {string} cssText - The css text.
  */
 function loadStyleFn(cssText) {
-  if (doc.createStyleSheet) {
-    doc.createStyleSheet().cssText = cssText;
-  } else {
-    var e = doc.createElement('style');
-    e.type = 'text/css';
+  var e = doc.createElement('style');
+  e.type = 'text/css';
     
-    if (e.styleSheet) e.styleSheet.cssText = cssText;
-    else e.appendChild(doc.createTextNode(cssText));
-    
-    // add to document
-    head.insertBefore(e, head.firstChild);
-  }
+  if (e.styleSheet) e.styleSheet.cssText = cssText;
+  else e.appendChild(doc.createTextNode(cssText));
+  
+  // add to document
+  head.insertBefore(e, head.firstChild);
+
+  return e;
 }
 
 
@@ -531,6 +582,41 @@ function dispatchEventFn(element, eventType, bubbles, cancelable, data) {
 
 
 /**
+ * Turn on window scroll lock.
+ */
+function enableScrollLockFn() {
+  // increment counter
+  scrollLock += 1
+
+  // add lock
+  if (scrollLock === 1) {
+    scrollLockPos = {left: jqLite.scrollLeft(win), top: jqLite.scrollTop(win)};
+    scrollLockEl = loadStyleFn('body{overflow:hidden!important;}');
+    win.scrollTo(scrollLockPos.left, scrollLockPos.top);
+  }
+}
+
+
+/**
+ * Turn off window scroll lock.
+ */
+function disableScrollLockFn() {
+  // ignore
+  if (scrollLock === 0) return;
+
+  // decrement counter
+  scrollLock -= 1
+
+  // remove lock 
+  if (scrollLock === 0) {
+    scrollLockEl.parentNode.removeChild(scrollLockEl);
+    win.scrollTo(scrollLockPos.left, scrollLockPos.top);
+    scrollLockEl = null;
+  }
+}
+
+
+/**
  * Define the module API
  */
 module.exports = {
@@ -540,9 +626,15 @@ module.exports = {
   /** Classnames object to string */
   classNames: classNamesFn,
 
+  /** Disable scroll lock */
+  disableScrollLock: disableScrollLockFn,
+
   /** Dispatch event */
   dispatchEvent: dispatchEventFn,
   
+  /** Enable scroll lock */
+  enableScrollLock: enableScrollLockFn,
+
   /** Log messages to the console when debug is turned on */
   log: logFn,
 
@@ -731,10 +823,10 @@ var Dropdown = React.createClass({displayName: "Dropdown",
   },
   _open: function() {
     // position menu element below toggle button
-    var wrapperRect = React.findDOMNode(this).getBoundingClientRect(),
+    var wrapperRect = ReactDOM.findDOMNode(this).getBoundingClientRect(),
         toggleRect;
 
-    toggleRect = React.findDOMNode(this.refs.button).getBoundingClientRect();
+    toggleRect = ReactDOM.findDOMNode(this.refs.button).getBoundingClientRect();
 
     this.setState({
       opened: true,
@@ -748,7 +840,7 @@ var Dropdown = React.createClass({displayName: "Dropdown",
     if (this.props.onClick) this.props.onClick(this, ev);
   },
   _outsideClick: function(ev) {
-    var isClickInside = React.findDOMNode(this).contains(ev.target);
+    var isClickInside = ReactDOM.findDOMNode(this).contains(ev.target);
 
     if (!isClickInside) this._close();
   }
@@ -1007,7 +1099,7 @@ var Textfield = React.createClass({displayName: "Textfield",
     // pointer-events shim
     if (util.supportsPointerEvents() === false) {
       e.target.style.cursor = 'text';
-      React.findDOMNode(this.refs.input).focus();
+      ReactDOM.findDOMNode(this.refs.input).focus();
     }
   }
 });
@@ -1117,7 +1209,7 @@ var Ripple = {
     // only left clicks
     if (ev.button !== 0) return;
 
-    var buttonEl = React.findDOMNode(this);
+    var buttonEl = ReactDOM.findDOMNode(this);
 
     // exit if button is disabled
     if (this.props.disabled === true) return;
@@ -1250,7 +1342,7 @@ var Tabs = React.createClass({displayName: "Tabs",
 
       // tab element
       tabEls.push(
-        React.createElement("li", {className:  (isActive) ? isActiveClass : ''}, 
+        React.createElement("li", {key:  i, className:  (isActive) ? isActiveClass : ''}, 
           React.createElement("a", {onClick:  this._handleClick.bind(this, i, item) }, 
              item.props.label
           )
@@ -1262,7 +1354,7 @@ var Tabs = React.createClass({displayName: "Tabs",
       if (isActive) cls += isActiveClass;
 
       paneEls.push(
-        React.createElement("div", {className:  cls }, 
+        React.createElement("div", {key:  i, className:  cls }, 
            item.props.children
         )
       );

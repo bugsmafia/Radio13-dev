@@ -6,57 +6,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- load MUI -->
     <link href="css/mui.min.css" rel="stylesheet" type="text/css" />
-	<script src="http://192.168.0.105:9090/target/target-script-min.js#testingmyapp"></script>
+	<link href="css/roundslider.min.css" rel="stylesheet" type="text/css" />
+	<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+	<link href="css/style.css" rel="stylesheet" type="text/css" />
 	<script type="text/javascript" src="cordova.js"></script>
 	<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
 	
 	
     <script type="text/javascript" src="js/mui.min.js"></script>
+	<script type="text/javascript" src="js/roundslider.min.js"></script>
 	<script type="text/javascript" src="js/script.js"></script>
+	
   </head>
   <body class="color-base">
     <header class="">
       <div class="mui-container">
-        <table width="100%">
-          <tr class="mui--appbar-height">
-            <td align="left">
-              <ul class="mui-list--inline mui--text-body2">
-                <li><a href="#" class="mui--text-white-70">Назад \ Меню</a></li>
-              </ul>
-            </td>
-			<td align="center">
-              <ul class="mui-list--inline mui--text-body2 ">
-                <li><a href="#" class="mui--text-white-70">Лайк</a></li>
-              </ul>
-            </td>
-            <td align="right">
-              <div class="mui-dropdown">
-				  <button class="mui-btn mui-btn--primary" data-mui-toggle="dropdown">Dropdown<span class="mui-caret"></span></button>
-				  <ul class="mui-dropdown__menu mui-dropdown__menu--right">
-					<li class="mui--is-active"><a data-mui-toggle="tab" data-mui-controls="status">Радио</a></li>
-					  <li><a data-mui-toggle="tab" data-mui-controls="stats">Статистика</a></li>
-					  <li><a data-mui-toggle="tab" data-mui-controls="player">Плеер</a></li>
-					  <li><a data-mui-toggle="tab" data-mui-controls="logs">Логи</a></li>
-				  </ul>
+		<div class="mui-row">
+				<div id="cont-play-left" class="mui-col-xs-1 mui-col-md-1 mui--text-body2"><a href="#" class="mui--text-white-70"></a></div>				
+				<div id="cont-play-center" class="mui-col-xs-10 mui-col-md-10 mui--text-center mui--text-body2"><a href="#" class="mui--text-white-70" id="like"><i class="fa fa-heart-o"></i></a></div>				
+				<div id="cont-play-right" class="mui-col-xs-1 mui-col-md-1">
+					<div class="mui-dropdown">
+					  <button class="mui-btn" data-mui-toggle="dropdown"><i class="fa fa-ellipsis-v"></i></button>
+					  <ul class="mui-dropdown__menu mui-dropdown__menu--right">
+							<li class="mui--is-active"><a data-mui-toggle="tab" data-mui-controls="status">Радио</a></li>
+							<li><a data-mui-toggle="tab" data-mui-controls="top30">TOP 30</a></li>
+							<li><a data-mui-toggle="tab" data-mui-controls="chat">Онлайн чат</a></li>
+							<li><a data-mui-toggle="tab" data-mui-controls="stats">Статистика</a></li>
+							<li><a data-mui-toggle="tab" data-mui-controls="player">Плеер</a></li>
+							<li><a data-mui-toggle="tab" data-mui-controls="logs">Логи</a></li>
+					  </ul>
+					</div>
 				</div>
-            </td>
-          </tr>
-        </table>
+			</div>
       </div>
     </header>
+	
+	
     <div class="mui-container-fluid">
+	
 		<div class="mui-tabs__pane mui--is-active" id="status">
 			<div class="mui-row">
-				<div id="cont-play-left" class="mui-col-xs-1 mui-col-md-1">=</div>				
+				<div id="cont-play-left" class="mui-col-xs-1 mui-col-md-1"></div>				
 				<div id="cont-play-center" class="mui-col-xs-10 mui-col-md-10 mui--text-center">
-					<div id="track-title" class="mui--text-headline">Headline</div>
-					<button class="mui-btn mui-btn--fab track-img" id="status-track-img"><div class="play-btn-stop"><div id="play-btn-line">ВКЛЮЧИТЬ</div></div></button>
-					<div id="track-song" class="mui--text-title">Title</div>
-					<div id="volume" class="mui-panel" style="padding: 0px;    background: #F51F1F;">
-						<div id="volume-line"></div>
+					<div id="play-f" class="status-wrap">
+						<div id="track-title" class="mui--text-headline">Headline</div>
+						<div id="track-song" class="mui--text-title">Title</div>
+						<div id="status-track-img"><div class="play-btn-stop"><div id="play-btn-line"><i class="fa fa-play-circle-o"></i></div></div></div>
+						<div id="status-track-img-none"></div>
 					</div>
 				</div>				
-				<div id="cont-play-right" class="mui-col-xs-1 mui-col-md-1">=</div>
+				<div id="cont-play-right" class="mui-col-xs-1 mui-col-md-1"></div>
+			</div>
+		</div>
+		
+		<div class="mui-tabs__pane" id="top30">
+			<div class="mui-row">
+				<div class="mui-col-xs-12 mui-col-md-12">
+					<div class="mui--text-headline">TOP 30 - лучших треков</div>
+					<div class="mui--text-subhead">Статистика отсутствует</div>
+				</div>				
+			</div>
+		</div>
+		<div class="mui-tabs__pane" id="chat">
+			<div class="mui-row">
+				<div class="mui-col-xs-12 mui-col-md-12">
+					<div class="mui--text-headline">Онлайн чат</div>
+				</div>				
 			</div>
 		</div>
 		
@@ -87,8 +102,6 @@
 					<div class="mui--text-headline">Логи ошибок</div>
 					<fieldset id="debugDiv"></fieldset>
 					<div id="log"></div>
-
-
 				</div>				
 			</div>
 		</div>
@@ -96,72 +109,6 @@
 		
 	</div>
 	
-<div id="bg" class="bg-1"></div>	
-	
-	<style>
-	#bg{
-		position:absolute;
-		margin-left:auto;
-		margin-right:auto;
-		width: 10px;
-		height: 10px;
-		display: block;
-		border-radius: 50%;
-		    z-index: -1;
-	}
-	.bg-1 {
-
-	}
-	.track-img {
-		background: url(images/no-image.png);
-		background-size: cover;
-		background-repeat: no-repeat;
-		box-shadow: 0 0 0 1em rgba(0,0,0,0.3);
-	}
-	    
-	header {
-		color: #fff;
-	}
-	body {
-		overflow: hidden;
-		
-
-	}
-	.color-base {
-
-	}
-	#like-line {
-		width: 50% !Important;
-		background: #1FF588;
-		display: block;
-		height: 20px;
-	}
-	#volume-line {
-		background: #1FF588;
-		display: block;
-		height: 20px;
-	}
-	#volume {
-		position: absolute;
-		bottom: 0px;
-		left: 0px;
-		width: 100%;
-	}
-	#track-title, #track-song {
-		height: 2em;
-		display: block;
-		width: 100%;
-		text-align: center;
-		line-height: 1em;
-	}
-	
-	.play-btn-stop {
-		display: block;
-		background: rgba(0,0,0,0.5);
-		width: 100%;
-		height: 100%;
-		color: #fff;
-	}
-	</style>
+	<div id="bg" class="bg-1"></div>	
   </body>
 </html>

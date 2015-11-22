@@ -4,16 +4,16 @@ $SpeedUpd = 5000;
 $i = 0;
 $id = 1;
 $playerLoad = 0;
-alert('1');
 function windowSize(){
 	$windowsW = jQuery(document).width(); // Ширина экрана
 	$windowsH = jQuery(document).height(); // Высота экрана
 	$bodyW = jQuery('body').width(); // Ширина рабочей области
 	$bodyH = jQuery('body').height(); // Высота рабочей области
 	$headerH = jQuery('header').height(); // Высота шапки
+	$volumH = jQuery('#volum').height() + 20;
 	
-	$TrackTitleH = jQuery('#track-title').height(); // Высота шапки	
-	$TrackSongH = jQuery('#track-song').height(); // Высота шапки
+	$TrackTitleH = jQuery('#track-title').height(); 
+	$TrackSongH = jQuery('#track-song').height();
 
 	$VolumeH = jQuery('#Volume').height(); // Уровня громкости
 	
@@ -22,21 +22,38 @@ function windowSize(){
 	$ContPlayR = jQuery('#cont-play-right').width(); //Страница: Статус вопроизведения. Правый блок: Ширина.
 	
 	$BigPlayBtn = $windowsW - $ContPlayL - $ContPlayR - 60; // Расчитываем ширину кнопки\изображения статус стрека
-	$BigPlayBtn = $BigPlayBtn - 60;
+	$BigPlayBtn = $BigPlayBtn - 90;
 	
 	$DigPlayBtnHeaderHFix = $windowsH - $headerH;
 	if ($DigPlayBtnHeaderHFix <= $BigPlayBtn) {
-		$DigPlayBtnHeaderHFix = $DigPlayBtnHeaderHFix - $TrackTitleH - $TrackSongH - 30;
-		jQuery('#status-track-img').css('width',$DigPlayBtnHeaderHFix);
-		jQuery('#status-track-img').css('height',$DigPlayBtnHeaderHFix);
+		$DigPlayBtnHeaderHFix = $DigPlayBtnHeaderHFix - 30;
+		jQuery('.status-wrap').css('width',$DigPlayBtnHeaderHFix);
+		jQuery('.status-wrap').css('height',$DigPlayBtnHeaderHFix);
 		jQuery('#play-btn-line').css('line-height',$DigPlayBtnHeaderHFix+'px');
 		if ($debug = 1){
 			//console.log('Высота кнопки больше. Формула #1');
 		}
 	} else {
-		jQuery('#status-track-img').css('width',$BigPlayBtn);
-		jQuery('#status-track-img').css('height',$BigPlayBtn);
+		jQuery('.status-wrap').css('width',$BigPlayBtn);
+		jQuery('.status-wrap').css('height',$BigPlayBtn);
 		jQuery('#play-btn-line').css('line-height',$BigPlayBtn+'px');
+		$volumRadius = ($BigPlayBtn / 2) + 20;
+		$("#volum").roundSlider({
+			sliderType: "min-range",
+			circleShape: "custom-quarter",
+			min: 0,
+			max: 10,
+			startAngle: 225,
+			editableTooltip: false,
+			radius: $volumRadius,
+			width: 20,
+			handleShape: "dot",
+			tooltipFormat: "tooltipVal1"
+		});
+		$volumRadiusM = -1 * $volumRadius;
+		jQuery('#volum .rs-container').css('margin-left', $volumRadiusM);
+		jQuery('#volum .rs-container').css('margin-top','-445px');
+
 		if ($debug = 1){
 			//console.log('Высота кнопки меньше. Формула #2');
 		}
@@ -66,7 +83,7 @@ function StatusTrackUpdate(){
 		}
 		
 		jQuery('#track-title').text($a);
-		jQuery('#track-song').html('</br>'+$s);
+		jQuery('#track-song').html(''+$s);
 		jQuery('#stats-track-name').html('<strong>'+$a+'</strong> - '+$s);
 		jQuery('body').attr('id', $id);
 	
@@ -81,6 +98,7 @@ function StatusTrackUpdate(){
 						if(img == "mega")
 							if (jQuery(this).text()){
 								jQuery('#status-track-img').css('background-image', 'url("'+jQuery(this).text()+'")');
+
 							}
 							else {
 								jQuery('#status-track-img').css('background-image', 'url("images/no-image.png")');
@@ -135,13 +153,40 @@ setInterval(function(){
 
 
 
-jQuery( "#status-track-img" ).click(function() {
+jQuery( "#play-f" ).click(function() {
 	if ($playerLoad == 0){
 		jQuery('#audio').html('<audio id="audioplay" controls preload="none"><source src="http://play.radio13.ru" type="audio/mpeg"></audio>');
 		var audio = document.getElementById("audioplay");
 		audio.play();
 		$playerLoad++;
 		jQuery('#status-track-img').html('');
+		
+		setInterval(function(){
+			$volume = $('input[name=tooltip1]').val();
+			if($volume == 0){
+				audio.volume =1;
+			} else if ($volume == 1){
+				audio.volume =0.9;
+			}else if ($volume == 2){
+				audio.volume =0.8;
+			}else if ($volume == 3){
+				audio.volume =0.7;
+			}else if ($volume == 4){
+				audio.volume =0.6;
+			}else if ($volume == 5){
+				audio.volume =0.5;
+			}else if ($volume == 6){
+				audio.volume =0.4;
+			}else if ($volume == 7){
+				audio.volume =0.3;
+			}else if ($volume == 8){
+				audio.volume =0.2;
+			}else if ($volume == 9){
+				audio.volume =0.1;
+			}else if ($volume == 10){
+				audio.volume =0;
+			}
+		}, 600);
 		if ($debug = 1){
 			console.log('Плеер загружен');
 		}
@@ -151,7 +196,7 @@ jQuery( "#status-track-img" ).click(function() {
 		audio.src = ""; // Stops audio download.
 		audio.load(); // Initiate a new load, required in Firefox 3.x.
 		//  jQuery('#audio').html('STOP');		
-		jQuery('#status-track-img').html('<div class="play-btn-stop"><div id="play-btn-line">ВКЛЮЧИТЬ</div></div>');
+		jQuery('#status-track-img').html('<div class="play-btn-stop"><div id="play-btn-line"><i class="fa fa-play-circle-o"></i></div></div>');
 		if ($debug = 1){
 			$playerLoad = 0;
 			console.log('Плеер отключен');			
@@ -160,18 +205,37 @@ jQuery( "#status-track-img" ).click(function() {
   
 });
 
-// Управление громкостью
-jQuery('#volume').click(function(e) {
-	$volumeH = jQuery('#volume').width(); // Ширина блока с модулем управления
-    var posX = jQuery(this).position().left,posY = jQuery(this).position().top; // Координаты клика
-	$volumeFinal = (e.pageX - posX) * 100;
-	$volumeFinal = $volumeFinal / $volumeH;
-	jQuery('#volume-line').css('width', $volumeFinal+'%');
-	$volumeFinal = $volumeFinal / 100;
-	$volumeFinal = $volumeFinal.toFixed(2);
-	var audio = document.getElementById("audioplay"); // Ищем наш плеер
-	audio.volume = $volumeFinal; // Передаем плееру данные громкости
+
+$("#volum").roundSlider({
+			sliderType: "min-range",
+			circleShape: "custom-quarter",
+			min: 0,
+			max: 10,
+			value: 8,
+			startAngle: 225,
+			editableTooltip: false,
+			radius: 0,
+			width: 20,
+			handleShape: "dot",
+			tooltipFormat: "tooltipVal1"
+		});
+function tooltipVal1(args) {
+    var months = [
+	'максимум звука!',
+	'очень громко', 
+	'громко', 
+	'чуть громче', 
+	'средняя громкость', 
+	'средняя громкость', 
+	'средняя громкость', 	
+	'тихо', 
+	'очень тихо', 
+	'еле слышно', 
+	'без звука', 
+	];
+    return months[args.value];
+}
+
 });
 
 
-});
